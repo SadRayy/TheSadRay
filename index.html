@@ -1,22 +1,69 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benim Sitem</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Barışma Sorusu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+      background: #f0f0f0;
+    }
+    h1 {
+      color: #333;
+    }
+    button {
+      font-size: 20px;
+      margin: 20px;
+      padding: 10px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button#yes {
+      background-color: #4CAF50;
+      color: white;
+    }
+    button#yes:hover {
+      background-color: #45a049;
+    }
+    button#no {
+      background-color: #f44336;
+      color: white;
+    }
+    button#no:hover {
+      background-color: #da190b;
+    }
+    #result {
+      margin-top: 40px;
+      font-size: 30px;
+      font-weight: bold;
+      color: #222;
+    }
+  </style>
 </head>
 <body>
-    <h1>Merhaba, ben Sadray!</h1>
-    <p>Bu benim kendi sitem 😎</p>
+  <h1>Barışmak ister misin?</h1>
+  <button id="yes">Evet</button>
+  <button id="no">Hayır</button>
+  
+  <div id="result"></div>
+  
+  <script>
+    const yesBtn = document.getElementById("yes");
+    const noBtn = document.getElementById("no");
+    const resultDiv = document.getElementById("result");
+
+    yesBtn.addEventListener("click", () => {
+      resultDiv.textContent = "SG";
+    });
+
+    noBtn.addEventListener("click", () => {
+      resultDiv.textContent = "Bok ye";
+    });
+  </script>
 </body>
 </html>
