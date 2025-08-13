@@ -1,95 +1,84 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sadrayy – Kayıt</title>
-  <style>
-    :root{--gap:12px}
-    body{font-family:system-ui,Arial,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0f172a;color:#e2e8f0;margin:0}
-    .card{width:min(420px,92vw);background:#111827;border:1px solid #1f2937;border-radius:16px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-    h1{margin:0 0 var(--gap) 0; font-size:24px; text-align:center; color:#ef4444} /* kırmızı başlık */
-    p.sub{margin:0 0 18px 0; opacity:.8; text-align:center; font-size:14px}
-    form{display:grid; gap:var(--gap)}
-    input,button{padding:12px 14px; border-radius:10px; border:1px solid #374151; background:#0b1220; color:#e5e7eb; outline:none}
-    input::placeholder{color:#94a3b8}
-    button{cursor:pointer; border:1px solid #334155; font-weight:600}
-    button:hover{filter:brightness(1.08)}
-    #message{margin-top:10px; font-weight:700; color:#ef4444; text-align:center} /* kırmızı mesaj */
-    .ok{color:#22c55e}
-  </style>
-
-  <!-- Firebase (modüler v9+) -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-    // 🔧 Kendi projenin config'i (senin verdiğin)
-    const firebaseConfig = {
-      apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
-      authDomain: "sadrayy-site.firebaseapp.com",
-      projectId: "sadrayy-site",
-      storageBucket: "sadrayy-site.firebasestorage.app",
-      messagingSenderId: "302147777701",
-      appId: "1:302147777701:web:d701293a09ab61d85f894c",
-      measurementId: "G-C9HVQ0XXBJ"
-    };
-
-    // Başlat
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    // Diğer <script type="module"> bloğunda kullanabilmek için
-    window.__db = db;
-  </script>
+<meta charset="UTF-8">
+<title>Eğlence Haber Akışı</title>
+<style>
+body { font-family: Arial; padding: 20px; background:#f0f0f0; }
+input { display:block; margin:10px 0; padding:5px; }
+button { padding:5px 10px; }
+.news { background:white; margin:10px 0; padding:10px; border-radius:5px; }
+.title { font-weight:bold; color:darkred; }
+</style>
 </head>
 <body>
-  <div class="card">
-    <h1>Hoşgeldin!</h1>
-    <p class="sub">Aşağıya kullanıcı adın ve bir şifre yaz. (Demo amaçlı)</p>
 
-    <form id="signupForm">
-      <input type="text" id="nickname" placeholder="Nickname" required />
-      <input type="password" id="password" placeholder="Şifre" required />
-      <button type="submit">Kaydol</button>
-    </form>
-    <div id="message"></div>
-  </div>
+<h2>Kayıt Ol</h2>
+<input type="text" id="regNick" placeholder="Nickname">
+<input type="password" id="regPass" placeholder="Şifre">
+<button onclick="registerUser()">Kayıt Ol</button>
 
-  <!-- Form -> Firestore -->
-  <script type="module">
-    import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+<h2>Giriş Yap</h2>
+<input type="text" id="loginNick" placeholder="Nickname">
+<input type="password" id="loginPass" placeholder="Şifre">
+<button onclick="loginUser()">Giriş Yap</button>
 
-    const form = document.getElementById("signupForm");
-    const message = document.getElementById("message");
+<div id="news-container"></div>
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      message.textContent = "";
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getFirestore, collection, doc, setDoc, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-      const nickname = document.getElementById("nickname").value.trim();
-      const password = document.getElementById("password").value.trim();
+const firebaseConfig = {
+  apiKey: "API_KEY",
+  authDomain: "sadrayy-site.firebaseapp.com",
+  projectId: "sadrayy-site",
+  storageBucket: "sadrayy-site.appspot.com",
+  messagingSenderId: "302147777701",
+  appId: "1:302147777701:web:d701293a09ab61d85f894c"
+};
 
-      if (!nickname || !password) {
-        message.textContent = "Lütfen tüm alanları doldur.";
-        return;
-      }
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-      try {
-        const usersRef = collection(window.__db, "users");
-        await addDoc(usersRef, {
-          nickname,
-          password,
-          createdAt: serverTimestamp()
-        });
-        message.textContent = "Hesap başarıyla oluşturuldu!";
-        message.classList.add("ok");
-        form.reset();
-      } catch (err) {
-        message.classList.remove("ok");
-        message.textContent = "Hata: " + err;
-      }
-    });
-  </script>
+// Kayıt fonksiyonu
+async function registerUser() {
+  const nick = document.getElementById("regNick").value;
+  const pass = document.getElementById("regPass").value;
+  if (!nick || !pass) return alert("Lütfen doldurun!");
+
+  await setDoc(doc(db, "users", nick), { password: pass });
+  alert("Kayıt başarılı! Giriş yapabilirsiniz.");
+}
+
+// Giriş fonksiyonu
+async function loginUser() {
+  const nick = document.getElementById("loginNick").value;
+  const pass = document.getElementById("loginPass").value;
+  if (!nick || !pass) return alert("Lütfen doldurun!");
+
+  const userDoc = await getDoc(doc(db, "users", nick));
+  if (!userDoc.exists()) return alert("Kullanıcı bulunamadı!");
+  if (userDoc.data().password !== pass) return alert("Şifre yanlış!");
+
+  alert("Giriş başarılı! Eğlence akışına yönlendiriliyorsun.");
+  loadNews();
+}
+
+// Haberleri yükleme (tüm kullanıcılar aynı içerikleri görecek)
+async function loadNews() {
+  const querySnapshot = await getDocs(collection(db, "news"));
+  const container = document.getElementById("news-container");
+  container.innerHTML = "<h2>Eğlence Haberleri</h2>";
+  querySnapshot.forEach((doc) => {
+    const data = doc.data();
+    const div = document.createElement("div");
+    div.classList.add("news");
+    div.innerHTML = `<div class="title">${data.title}</div><div>${data.content}</div>`;
+    container.appendChild(div);
+  });
+}
+</script>
+
 </body>
 </html>
