@@ -2,28 +2,37 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Eğlence Haber Akışı</title>
+<title>Eğlence Sitesi</title>
 <style>
-body { font-family: Arial; padding: 20px; background:#f0f0f0; }
-input { display:block; margin:10px 0; padding:5px; }
-button { padding:5px 10px; }
-.news { background:white; margin:10px 0; padding:10px; border-radius:5px; }
+body { font-family: Arial; background:#f0f0f0; display:flex; flex-direction:column; align-items:center; padding:20px; }
+.container { background:white; padding:20px; border-radius:10px; width:300px; box-shadow:0 0 10px rgba(0,0,0,0.2); margin-bottom:20px; }
+input { display:block; width:100%; margin:10px 0; padding:8px; }
+button { padding:8px 12px; width:100%; cursor:pointer; }
+#news-container { width:500px; }
+.news { background:white; margin:10px 0; padding:10px; border-radius:5px; box-shadow:0 0 5px rgba(0,0,0,0.1); }
 .title { font-weight:bold; color:darkred; }
+.hidden { display:none; }
 </style>
 </head>
 <body>
 
+<div id="register-container" class="container">
 <h2>Kayıt Ol</h2>
 <input type="text" id="regNick" placeholder="Nickname">
 <input type="password" id="regPass" placeholder="Şifre">
 <button onclick="registerUser()">Kayıt Ol</button>
+<p>Zaten hesabın var mı? <a href="#" onclick="showLogin()">Giriş Yap</a></p>
+</div>
 
+<div id="login-container" class="container hidden">
 <h2>Giriş Yap</h2>
 <input type="text" id="loginNick" placeholder="Nickname">
 <input type="password" id="loginPass" placeholder="Şifre">
 <button onclick="loginUser()">Giriş Yap</button>
+<p>Hesabın yok mu? <a href="#" onclick="showRegister()">Kayıt Ol</a></p>
+</div>
 
-<div id="news-container"></div>
+<div id="news-container" class="hidden"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
@@ -41,14 +50,29 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// Arayüz geçişleri
+function showLogin() {
+  document.getElementById("register-container").classList.add("hidden");
+  document.getElementById("login-container").classList.remove("hidden");
+}
+function showRegister() {
+  document.getElementById("login-container").classList.add("hidden");
+  document.getElementById("register-container").classList.remove("hidden");
+}
+
 // Kayıt fonksiyonu
 async function registerUser() {
   const nick = document.getElementById("regNick").value;
   const pass = document.getElementById("regPass").value;
   if (!nick || !pass) return alert("Lütfen doldurun!");
+  
+  const userRef = doc(db, "users", nick);
+  const userDoc = await getDoc(userRef);
+  if(userDoc.exists()) return alert("Bu kullanıcı zaten kayıtlı!");
 
-  await setDoc(doc(db, "users", nick), { password: pass });
-  alert("Kayıt başarılı! Giriş yapabilirsiniz.");
+  await setDoc(userRef, { password: pass });
+  alert("Kayıt başarılı! Giriş ekranına yönlendiriliyorsun.");
+  showLogin();
 }
 
 // Giriş fonksiyonu
@@ -58,14 +82,17 @@ async function loginUser() {
   if (!nick || !pass) return alert("Lütfen doldurun!");
 
   const userDoc = await getDoc(doc(db, "users", nick));
-  if (!userDoc.exists()) return alert("Kullanıcı bulunamadı!");
-  if (userDoc.data().password !== pass) return alert("Şifre yanlış!");
+  if(!userDoc.exists()) return alert("Kullanıcı bulunamadı!");
+  if(userDoc.data().password !== pass) return alert("Şifre yanlış!");
 
-  alert("Giriş başarılı! Eğlence akışına yönlendiriliyorsun.");
+  alert("Giriş başarılı! Eğlence akışına geçiliyor.");
+  document.getElementById("register-container").classList.add("hidden");
+  document.getElementById("login-container").classList.add("hidden");
+  document.getElementById("news-container").classList.remove("hidden");
   loadNews();
 }
 
-// Haberleri yükleme (tüm kullanıcılar aynı içerikleri görecek)
+// Haberleri yükleme
 async function loadNews() {
   const querySnapshot = await getDocs(collection(db, "news"));
   const container = document.getElementById("news-container");
@@ -79,6 +106,5 @@ async function loadNews() {
   });
 }
 </script>
-
 </body>
 </html>
