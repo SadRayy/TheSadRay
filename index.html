@@ -2,110 +2,101 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Eğlence Sitesi</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sadrayy Eğlence & Haber Sitesi</title>
 <style>
-body { font-family: Arial; background:#f0f0f0; display:flex; flex-direction:column; align-items:center; padding:20px; }
-.container { background:white; padding:20px; border-radius:10px; width:300px; box-shadow:0 0 10px rgba(0,0,0,0.2); margin-bottom:20px; color:red; }
-input { display:block; width:100%; margin:10px 0; padding:8px; }
-button { padding:8px 12px; width:100%; cursor:pointer; }
-#news-container { width:500px; color:red; }
-.news { background:white; margin:10px 0; padding:10px; border-radius:5px; box-shadow:0 0 5px rgba(0,0,0,0.1); }
-.title { font-weight:bold; color:red; }
-.hidden { display:none; }
-a { color:red; text-decoration:none; }
+  body { font-family: Arial, sans-serif; background-color: #f0f0f0; margin: 0; padding: 0;}
+  .container { max-width: 500px; margin: 50px auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.2);}
+  h2 { color: red; text-align: center; }
+  input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
+  button { padding: 10px 20px; border: none; border-radius: 5px; background: red; color: #fff; cursor: pointer; margin: 5px 0; }
+  #newsList { margin-top: 20px; }
+  .newsItem { background: #eee; padding: 10px; margin: 5px 0; border-radius: 5px; }
 </style>
 </head>
 <body>
 
-<div id="register-container" class="container">
-<h2>Kayıt Ol</h2>
-<input type="text" id="regNick" placeholder="Nickname">
-<input type="password" id="regPass" placeholder="Şifre">
-<button onclick="registerUser()">Kayıt Ol</button>
-<p>Zaten hesabın var mı? <a href="#" onclick="showLogin()">Giriş Yap</a></p>
+<div class="container" id="registerDiv">
+  <h2>Kayıt Ol</h2>
+  <input type="text" id="regNickname" placeholder="Nickname">
+  <input type="password" id="regPassword" placeholder="Şifre">
+  <button id="registerBtn">Kayıt Ol</button>
 </div>
 
-<div id="login-container" class="container hidden">
-<h2>Giriş Yap</h2>
-<input type="text" id="loginNick" placeholder="Nickname">
-<input type="password" id="loginPass" placeholder="Şifre">
-<button onclick="loginUser()">Giriş Yap</button>
-<p>Hesabın yok mu? <a href="#" onclick="showRegister()">Kayıt Ol</a></p>
+<div class="container" id="loginDiv" style="display:none;">
+  <h2>Giriş Yap</h2>
+  <input type="text" id="loginNickname" placeholder="Nickname">
+  <input type="password" id="loginPassword" placeholder="Şifre">
+  <button id="loginBtn">Giriş Yap</button>
 </div>
 
-<div id="news-container" class="hidden"></div>
+<div class="container" id="newsDiv" style="display:none;">
+  <h2>Haber Akışı</h2>
+  <div id="newsList"></div>
+</div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
+// Firebase Konfigürasyonu
 const firebaseConfig = {
-  apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",           // Buraya kendi Firebase apiKey
+  apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
   authDomain: "sadrayy-site.firebaseapp.com",
   projectId: "sadrayy-site",
-  storageBucket: "sadrayy-site.appspot.com",
+  storageBucket: "sadrayy-site.firebasestorage.app",
   messagingSenderId: "302147777701",
-  appId: "1:302147777701:web:d701293a09ab61d85f894c"
+  appId: "1:302147777701:web:d701293a09ab61d85f894c",
+  measurementId: "G-C9HVQ0XXBJ"
 };
 
+// Firebase Başlat
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Arayüz geçişleri
-function showLogin() {
-  document.getElementById("register-container").classList.add("hidden");
-  document.getElementById("login-container").classList.remove("hidden");
-}
-function showRegister() {
-  document.getElementById("login-container").classList.add("hidden");
-  document.getElementById("register-container").classList.remove("hidden");
-}
-
-// Kayıt fonksiyonu
-async function registerUser() {
-  const nick = document.getElementById("regNick").value.trim();
-  const pass = document.getElementById("regPass").value.trim();
-  if (!nick || !pass) return alert("Lütfen doldurun!");
-
-  const userRef = doc(db, "users", nick);
-  const userDoc = await getDoc(userRef);
-  if(userDoc.exists()) return alert("Bu kullanıcı zaten kayıtlı!");
-
-  await setDoc(userRef, { password: pass });
-  alert("Kayıt başarılı! Giriş ekranına yönlendiriliyorsun.");
-  showLogin();
+// Global fonksiyonlar
+window.registerUser = async function() {
+  const nickname = document.getElementById("regNickname").value;
+  const password = document.getElementById("regPassword").value;
+  if(!nickname || !password){ alert("Lütfen tüm alanları doldurun."); return; }
+  
+  await setDoc(doc(db, "users", nickname), { password });
+  alert("Kayıt başarılı! Giriş ekranına yönlendiriliyorsunuz.");
+  document.getElementById("registerDiv").style.display = "none";
+  document.getElementById("loginDiv").style.display = "block";
 }
 
-// Giriş fonksiyonu
-async function loginUser() {
-  const nick = document.getElementById("loginNick").value.trim();
-  const pass = document.getElementById("loginPass").value.trim();
-  if (!nick || !pass) return alert("Lütfen doldurun!");
+window.loginUser = async function() {
+  const nickname = document.getElementById("loginNickname").value;
+  const password = document.getElementById("loginPassword").value;
+  if(!nickname || !password){ alert("Lütfen tüm alanları doldurun."); return; }
 
-  const userDoc = await getDoc(doc(db, "users", nick));
-  if(!userDoc.exists()) return alert("Kullanıcı bulunamadı!");
-  if(userDoc.data().password !== pass) return alert("Şifre yanlış!");
+  const userDoc = await getDoc(doc(db, "users", nickname));
+  if(!userDoc.exists()) { alert("Kullanıcı bulunamadı!"); return; }
+  if(userDoc.data().password !== password){ alert("Şifre yanlış!"); return; }
 
-  alert("Giriş başarılı! Eğlence akışına geçiliyor.");
-  document.getElementById("register-container").classList.add("hidden");
-  document.getElementById("login-container").classList.add("hidden");
-  document.getElementById("news-container").classList.remove("hidden");
+  alert("Giriş başarılı!");
+  document.getElementById("loginDiv").style.display = "none";
+  document.getElementById("newsDiv").style.display = "block";
   loadNews();
 }
 
-// Haberleri yükleme
+// Haberleri çek
 async function loadNews() {
+  const newsList = document.getElementById("newsList");
+  newsList.innerHTML = "";
   const querySnapshot = await getDocs(collection(db, "news"));
-  const container = document.getElementById("news-container");
-  container.innerHTML = "<h2>Eğlence Haberleri</h2>";
   querySnapshot.forEach((doc) => {
-    const data = doc.data();
     const div = document.createElement("div");
-    div.classList.add("news");
-    div.innerHTML = `<div class="title">${data.title}</div><div>${data.content}</div>`;
-    container.appendChild(div);
+    div.className = "newsItem";
+    div.innerHTML = `<strong>${doc.data().title}</strong><p>${doc.data().content}</p>`;
+    newsList.appendChild(div);
   });
 }
+
+// Event listener ekle
+document.getElementById("registerBtn").addEventListener("click", registerUser);
+document.getElementById("loginBtn").addEventListener("click", loginUser);
 </script>
 </body>
 </html>
