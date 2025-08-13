@@ -36,10 +36,10 @@ button { padding:8px 12px; width:100%; cursor:pointer; }
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getFirestore, collection, doc, setDoc, getDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "API_KEY",
+  apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",           // Burası senin Firebase apiKey
   authDomain: "sadrayy-site.firebaseapp.com",
   projectId: "sadrayy-site",
   storageBucket: "sadrayy-site.appspot.com",
@@ -62,10 +62,10 @@ function showRegister() {
 
 // Kayıt fonksiyonu
 async function registerUser() {
-  const nick = document.getElementById("regNick").value;
-  const pass = document.getElementById("regPass").value;
+  const nick = document.getElementById("regNick").value.trim();
+  const pass = document.getElementById("regPass").value.trim();
   if (!nick || !pass) return alert("Lütfen doldurun!");
-  
+
   const userRef = doc(db, "users", nick);
   const userDoc = await getDoc(userRef);
   if(userDoc.exists()) return alert("Bu kullanıcı zaten kayıtlı!");
@@ -77,8 +77,8 @@ async function registerUser() {
 
 // Giriş fonksiyonu
 async function loginUser() {
-  const nick = document.getElementById("loginNick").value;
-  const pass = document.getElementById("loginPass").value;
+  const nick = document.getElementById("loginNick").value.trim();
+  const pass = document.getElementById("loginPass").value.trim();
   if (!nick || !pass) return alert("Lütfen doldurun!");
 
   const userDoc = await getDoc(doc(db, "users", nick));
