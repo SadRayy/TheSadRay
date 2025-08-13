@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sadrayy Site</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sadrayy – Kayıt</title>
   <style>
-    body { font-family: Arial; text-align: center; margin-top: 50px; }
-    h1 { color: red; } /* Başlık kırmızı olacak */
-    input, button { margin: 5px; padding: 10px; }
-    button { cursor: pointer; }
-    #message { color: red; font-weight: bold; margin-top: 10px; }
+    :root{--gap:12px}
+    body{font-family:system-ui,Arial,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;background:#0f172a;color:#e2e8f0;margin:0}
+    .card{width:min(420px,92vw);background:#111827;border:1px solid #1f2937;border-radius:16px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+    h1{margin:0 0 var(--gap) 0; font-size:24px; text-align:center; color:#ef4444} /* kırmızı başlık */
+    p.sub{margin:0 0 18px 0; opacity:.8; text-align:center; font-size:14px}
+    form{display:grid; gap:var(--gap)}
+    input,button{padding:12px 14px; border-radius:10px; border:1px solid #374151; background:#0b1220; color:#e5e7eb; outline:none}
+    input::placeholder{color:#94a3b8}
+    button{cursor:pointer; border:1px solid #334155; font-weight:600}
+    button:hover{filter:brightness(1.08)}
+    #message{margin-top:10px; font-weight:700; color:#ef4444; text-align:center} /* kırmızı mesaj */
+    .ok{color:#22c55e}
   </style>
 
-  <!-- Firebase Config -->
+  <!-- Firebase (modüler v9+) -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
+    // 🔧 Kendi projenin config'i (senin verdiğin)
     const firebaseConfig = {
       apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
       authDomain: "sadrayy-site.firebaseapp.com",
@@ -27,38 +35,59 @@
       measurementId: "G-C9HVQ0XXBJ"
     };
 
+    // Başlat
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    window.db = db;
+
+    // Diğer <script type="module"> bloğunda kullanabilmek için
+    window.__db = db;
   </script>
 </head>
 <body>
-  <h1>Hoşgeldin!</h1>
-  <form id="signupForm">
-    <input type="text" id="nickname" placeholder="Nickname" required />
-    <input type="password" id="password" placeholder="Şifre" required />
-    <button type="submit">Kaydol</button>
-  </form>
-  <div id="message"></div>
+  <div class="card">
+    <h1>Hoşgeldin!</h1>
+    <p class="sub">Aşağıya kullanıcı adın ve bir şifre yaz. (Demo amaçlı)</p>
 
+    <form id="signupForm">
+      <input type="text" id="nickname" placeholder="Nickname" required />
+      <input type="password" id="password" placeholder="Şifre" required />
+      <button type="submit">Kaydol</button>
+    </form>
+    <div id="message"></div>
+  </div>
+
+  <!-- Form -> Firestore -->
   <script type="module">
-    import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    import { collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
     const form = document.getElementById("signupForm");
     const message = document.getElementById("message");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const nickname = document.getElementById("nickname").value;
-      const password = document.getElementById("password").value;
+      message.textContent = "";
+
+      const nickname = document.getElementById("nickname").value.trim();
+      const password = document.getElementById("password").value.trim();
+
+      if (!nickname || !password) {
+        message.textContent = "Lütfen tüm alanları doldur.";
+        return;
+      }
 
       try {
-        const usersRef = collection(window.db, "users");
-        await addDoc(usersRef, { nickname, password });
-        message.innerText = "Hesap başarıyla oluşturuldu!"; // Kırmızı mesaj
+        const usersRef = collection(window.__db, "users");
+        await addDoc(usersRef, {
+          nickname,
+          password,
+          createdAt: serverTimestamp()
+        });
+        message.textContent = "Hesap başarıyla oluşturuldu!";
+        message.classList.add("ok");
         form.reset();
-      } catch (error) {
-        message.innerText = "Hata: " + error; // Kırmızı mesaj
+      } catch (err) {
+        message.classList.remove("ok");
+        message.textContent = "Hata: " + err;
       }
     });
   </script>
