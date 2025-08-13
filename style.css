@@ -1,7 +1,7 @@
 /* Genel body ayarları */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1f4037, #99f2c8); /* Modern gradient arka plan */
+    background: linear-gradient(135deg, #1f4037, #99f2c8);
     color: #333;
     margin: 0;
     padding: 0;
@@ -57,8 +57,8 @@ button:hover {
     background-color: #4caf50;
 }
 
-/* Haber paneli (örnek) */
-.news {
+/* Haber paneli */
+.newsItem {
     margin-top: 20px;
     padding: 20px;
     border-radius: 10px;
