@@ -1,46 +1,60 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Meklendin Sayfası</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sadrayy Site</title>
   <style>
-    body, html {
-      margin: 0; padding: 0;
-      height: 100%;
-      font-family: Arial, sans-serif;
-      background: #000;
-    }
-    .container {
-      position: relative;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-    }
-    .background-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: brightness(0.6); /* Fotoğrafı karart */
-      display: block;
-    }
-    .centered-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      font-size: 4rem;
-      font-weight: bold;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
-      user-select: none;
-    }
+    body { font-family: Arial; text-align: center; margin-top: 50px; }
+    input, button { margin: 5px; padding: 10px; }
   </style>
+
+  <!-- Firebase Config -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
+      authDomain: "sadrayy-site.firebaseapp.com",
+      projectId: "sadrayy-site",
+      storageBucket: "sadrayy-site.firebasestorage.app",
+      messagingSenderId: "302147777701",
+      appId: "1:302147777701:web:d701293a09ab61d85f894c",
+      measurementId: "G-C9HVQ0XXBJ"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    window.db = db;
+  </script>
 </head>
 <body>
-  <div class="container">
-    <img src="meklendin.jpg" alt="Meklendin" class="background-img" />
-    <div class="centered-text">Meklendin</div>
-  </div>
+  <h1>Hoşgeldin!</h1>
+  <form id="signupForm">
+    <input type="text" id="nickname" placeholder="Nickname" required />
+    <input type="password" id="password" placeholder="Şifre" required />
+    <button type="submit">Kaydol</button>
+  </form>
+  <div id="message"></div>
+
+  <script type="module">
+    const form = document.getElementById("signupForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const nickname = document.getElementById("nickname").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        await window.db.collection("users").add({ nickname, password });
+        message.innerText = "Hesap başarıyla oluşturuldu!";
+        form.reset();
+      } catch (error) {
+        message.innerText = "Hata: " + error;
+      }
+    });
+  </script>
 </body>
 </html>
