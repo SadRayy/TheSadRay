@@ -1,7 +1,7 @@
+// Firebase config (kendi projenle değiştir)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, collection, getDocs, updateDoc, increment } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-// Firebase Konfigürasyonu
 const firebaseConfig = {
   apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
   authDomain: "sadrayy-site.firebaseapp.com",
@@ -15,60 +15,58 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Kayıt
+// Ekranlar
+const registerScreen = document.getElementById("register-screen");
+const loginScreen = document.getElementById("login-screen");
+
+// Ekran geçiş fonksiyonları
+function showLogin() {
+    registerScreen.style.display = "none";
+    loginScreen.style.display = "block";
+}
+function showRegister() {
+    loginScreen.style.display = "none";
+    registerScreen.style.display = "block";
+}
+
+// Kayıt fonksiyonu
 window.registerUser = async function() {
-  const nickname = document.getElementById("regNickname").value;
-  const password = document.getElementById("regPassword").value;
-  if(!nickname || !password){ alert("Tüm alanları doldurun!"); return; }
+    const nickname = document.getElementById("nickname").value;
+    const password = document.getElementById("password").value;
 
-  await setDoc(doc(db, "users", nickname), { password });
-  alert("Kayıt başarılı!");
-  document.getElementById("registerDiv").style.display = "none";
-  document.getElementById("loginDiv").style.display = "block";
+    if (!nickname || !password) {
+        alert("Lütfen tüm alanları doldur!");
+        return;
+    }
+
+    try {
+        await addDoc(collection(db, "users"), {
+            nickname: nickname,
+            password: password
+        });
+        alert("Kayıt başarılı!");
+        showLogin();
+    } catch (e) {
+        console.error("Hata: ", e);
+    }
 }
 
-// Giriş
+// Giriş fonksiyonu
 window.loginUser = async function() {
-  const nickname = document.getElementById("loginNickname").value;
-  const password = document.getElementById("loginPassword").value;
-  if(!nickname || !password){ alert("Tüm alanları doldurun!"); return; }
+    const nickname = document.getElementById("login-nickname").value;
+    const password = document.getElementById("login-password").value;
 
-  const userDoc = await getDoc(doc(db, "users", nickname));
-  if(!userDoc.exists()) { alert("Kullanıcı bulunamadı!"); return; }
-  if(userDoc.data().password !== password){ alert("Şifre yanlış!"); return; }
+    if (!nickname || !password) {
+        alert("Lütfen tüm alanları doldur!");
+        return;
+    }
 
-  alert("Giriş başarılı!");
-  document.getElementById("loginDiv").style.display = "none";
-  document.getElementById("newsDiv").style.display = "block";
-  loadNews();
+    const q = query(collection(db, "users"), where("nickname", "==", nickname), where("password", "==", password));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+        alert("Giriş başarılı!");
+    } else {
+        alert("Hatalı nickname veya şifre!");
+    }
 }
-
-// Haberleri yükle
-async function loadNews() {
-  const newsList = document.getElementById("newsList");
-  newsList.innerHTML = "";
-
-  const querySnapshot = await getDocs(collection(db, "news"));
-  querySnapshot.forEach((docSnap) => {
-    const data = docSnap.data();
-    const div = document.createElement("div");
-    div.className = "newsItem";
-    div.innerHTML = `
-      <strong>${data.title}</strong>
-      <p>${data.content}</p>
-      <button class="likeBtn" onclick="likeNews('${docSnap.id}')">Beğen <span class="likeCount">${data.likes || 0}</span></button>
-    `;
-    newsList.appendChild(div);
-  });
-}
-
-// Beğeni ekleme
-window.likeNews = async function(newsId) {
-  const newsRef = doc(db, "news", newsId);
-  await updateDoc(newsRef, { likes: increment(1) });
-  loadNews();
-}
-
-// Event listener
-document.getElementById("registerBtn").addEventListener("click", registerUser);
-document.getElementById("loginBtn").addEventListener("click", loginUser);
