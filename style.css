@@ -59,11 +59,22 @@ button:hover {
 
 /* Haber paneli */
 .newsItem {
-    margin-top: 20px;
-    padding: 20px;
+    margin-top: 10px;
+    padding: 15px;
     border-radius: 10px;
     background-color: #eaf4f4;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     color: #1f4037;
     font-weight: 500;
+}
+
+/* Kayıt altındaki ekstra link */
+.extra-link {
+    margin-top: 10px;
+    font-size: 14px;
+}
+.extra-link a {
+    color: #1f4037;
+    text-decoration: underline;
+    cursor: pointer;
 }
