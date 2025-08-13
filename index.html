@@ -7,6 +7,7 @@
   <style>
     body { font-family: Arial; text-align: center; margin-top: 50px; }
     input, button { margin: 5px; padding: 10px; }
+    button { cursor: pointer; }
   </style>
 
   <!-- Firebase Config -->
@@ -39,6 +40,8 @@
   <div id="message"></div>
 
   <script type="module">
+    import { collection, addDoc } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
     const form = document.getElementById("signupForm");
     const message = document.getElementById("message");
 
@@ -48,7 +51,8 @@
       const password = document.getElementById("password").value;
 
       try {
-        await window.db.collection("users").add({ nickname, password });
+        const usersRef = collection(window.db, "users");
+        await addDoc(usersRef, { nickname, password });
         message.innerText = "Hesap başarıyla oluşturuldu!";
         form.reset();
       } catch (error) {
