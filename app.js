@@ -16,11 +16,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Kullanıcı Kayıt
+// Kayıt kullanıcı
 window.registerUser = async function() {
   const nickname = document.getElementById("regNickname").value;
   const password = document.getElementById("regPassword").value;
   if(!nickname || !password){ alert("Lütfen tüm alanları doldurun."); return; }
+
+  const userDoc = await getDoc(doc(db, "users", nickname));
+  if(userDoc.exists()){ 
+      alert("Bu nickname zaten kullanılıyor!"); 
+      return; 
+  }
 
   await setDoc(doc(db, "users", nickname), { password });
   alert("Kayıt başarılı! Giriş ekranına yönlendiriliyorsunuz.");
@@ -28,7 +34,7 @@ window.registerUser = async function() {
   document.getElementById("loginDiv").style.display = "block";
 }
 
-// Kullanıcı Giriş
+// Giriş kullanıcı
 window.loginUser = async function() {
   const nickname = document.getElementById("loginNickname").value;
   const password = document.getElementById("loginPassword").value;
@@ -60,10 +66,7 @@ async function loadNews() {
 // Event listener ekle
 document.getElementById("registerBtn").addEventListener("click", registerUser);
 document.getElementById("loginBtn").addEventListener("click", loginUser);
-
-// Kayıt altındaki "Giriş Yap" linki
-document.getElementById("gotoLogin").addEventListener("click", function(e) {
-  e.preventDefault();
+document.getElementById("gotoLogin").addEventListener("click", ()=>{
   document.getElementById("registerDiv").style.display = "none";
   document.getElementById("loginDiv").style.display = "block";
 });
