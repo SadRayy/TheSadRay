@@ -72,7 +72,7 @@ btnContinue.addEventListener("click", async ()=>{
   welcomeCard.classList.add("hidden");
   mainUI.classList.remove("hidden");
 
-  // Arka plan beyaz yapıldı
+  // Ana arka plan beyaz
   document.body.style.backgroundColor = "#ffffff";
 
   welcome.textContent = `Hoş geldin, ${nick}`;
@@ -94,7 +94,7 @@ btnLogin.addEventListener("click", async () => {
   loginCard.classList.add("hidden");
   mainUI.classList.remove("hidden");
 
-  // Arka plan beyaz yapıldı
+  // Ana arka plan beyaz
   document.body.style.backgroundColor = "#ffffff";
 
   welcome.textContent = `Hoş geldin, ${nick}`;
@@ -116,7 +116,7 @@ async function loadNews(){
   });
 }
 
-// Bölge geçişi
+// Navbar tıklamaları
 navItems.forEach(item=>{
   item.addEventListener("click",()=>showSection(item.dataset.section));
 });

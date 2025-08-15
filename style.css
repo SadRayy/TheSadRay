@@ -1,17 +1,17 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #ffffff; /* Kayıt sonrası beyaz arka plan */
-    color: #333;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    transition: background-color 0.3s;
 }
 
+/* Kayıt/Giriş/Bilgilendirme kartları */
 .container {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(31, 64, 55, 0.1); /* Kayıt ve giriş kartlarının arka planı değişmez */
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -48,9 +48,7 @@ button {
     transition: 0.3s;
 }
 
-button:hover {
-    background-color: #4caf50;
-}
+button:hover { background-color: #4caf50; }
 
 .hidden { display: none; }
 
@@ -72,7 +70,7 @@ nav#navbar ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 50px; /* simetrik aralık */
+    gap: 80px; /* Artırılmış aralıklar */
     padding: 0;
     margin: 0;
 }
@@ -84,9 +82,7 @@ nav#navbar li {
     transition: 0.2s;
 }
 
-nav#navbar li:hover {
-    color: #4caf50;
-}
+nav#navbar li:hover { color: #4caf50; }
 
 #content {
     padding-top: 80px; /* navbar yüksekliği kadar boşluk */
@@ -94,6 +90,7 @@ nav#navbar li:hover {
     max-width: 1000px;
 }
 
+/* Ana içerik bölümleri */
 .section { display: none; }
 .section.active { display: block; }
 
