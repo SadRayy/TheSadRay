@@ -3,40 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sadrayy Eğlence & Haber Sitesi</title>
+<title>Sadrayy Haber Sitesi</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<!-- Kayıt Kartı -->
 <div class="container" id="registerCard">
   <h2>Kayıt Ol</h2>
   <input type="text" id="regNick" placeholder="Nickname">
   <input type="password" id="regPass" placeholder="Şifre">
   <button id="btnRegister">Kayıt Ol</button>
-  <p>Hesabınız varsa <span id="goLogin" class="link">Giriş Yap</span></p>
   <p id="regMsg" class="msg"></p>
+  <p class="switch">Hesabınız var mı? <span id="goLogin">Giriş Yap</span></p>
 </div>
 
+<!-- Giriş Kartı -->
 <div class="container hidden" id="loginCard">
   <h2>Giriş Yap</h2>
   <input type="text" id="logNick" placeholder="Nickname">
   <input type="password" id="logPass" placeholder="Şifre">
   <button id="btnLogin">Giriş Yap</button>
-  <p>Hesabınız yoksa <span id="goRegister" class="link">Kayıt Ol</span></p>
   <p id="logMsg" class="msg"></p>
+  <p class="switch">Hesabınız yok mu? <span id="goRegister">Kayıt Ol</span></p>
 </div>
 
+<!-- Bilgilendirme Kartı -->
 <div class="container hidden" id="infoCard">
   <h2>Bilgilendirme</h2>
-  <p>Bu site kullanıcılar için eğlence ve haber içerikleri sunmaktadır. Lütfen kurallara uygun davranın.
-    KURALLAR:
-    1-Eğlenin
-  </p>
-  <button id="btnContinue">Devam Et</button>
+  <p>Bu site haberler ve yardımlaşma amaçlıdır. Kurallara uygun davranın ve paylaşımlarda saygılı olun.</p>
+  <label>
+    <input type="checkbox" id="infoCheck"> Kuralları okudum ve kabul ediyorum
+  </label>
+  <button id="infoAccept">Devam Et</button>
 </div>
 
+<!-- Haber Akışı Kartı -->
 <div class="container hidden" id="newsCard">
-  <h2 id="welcome">Haber Akışı</h2>
+  <h2 id="welcome"></h2>
   <div id="newsList"></div>
 </div>
 
