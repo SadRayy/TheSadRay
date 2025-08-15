@@ -19,7 +19,7 @@ const db = getFirestore(app);
 const registerCard = document.getElementById("registerCard");
 const loginCard    = document.getElementById("loginCard");
 const welcomeCard  = document.getElementById("welcomeCard");
-const newsCard     = document.getElementById("newsCard");
+const mainUI       = document.getElementById("mainUI");
 
 const regNick = document.getElementById("regNick");
 const regPass = document.getElementById("regPass");
@@ -33,8 +33,11 @@ const goLogin = document.getElementById("goLogin");
 const goRegister = document.getElementById("goRegister");
 
 const btnContinue = document.getElementById("btnContinue");
-const newsList = document.getElementById("newsList");
 const welcome = document.getElementById("welcome");
+const newsList = document.getElementById("newsList");
+
+const navItems = document.querySelectorAll("nav#navbar li");
+const sections = document.querySelectorAll(".section");
 
 // Form geçişleri
 goLogin.addEventListener("click", () => {
@@ -67,8 +70,9 @@ btnRegister.addEventListener("click", async () => {
 btnContinue.addEventListener("click", async ()=>{
   const nick = (regNick.value||"").trim();
   welcomeCard.classList.add("hidden");
-  newsCard.classList.remove("hidden");
+  mainUI.classList.remove("hidden");
   welcome.textContent = `Hoş geldin, ${nick}`;
+  showSection("home");
   await loadNews();
 });
 
@@ -84,8 +88,9 @@ btnLogin.addEventListener("click", async () => {
   if(snap.data().password!==pass){ alert("Şifre yanlış."); return; }
 
   loginCard.classList.add("hidden");
-  newsCard.classList.remove("hidden");
+  mainUI.classList.remove("hidden");
   welcome.textContent = `Hoş geldin, ${nick}`;
+  showSection("home");
   await loadNews();
 });
 
@@ -101,6 +106,17 @@ async function loadNews(){
     el.innerHTML=`<h3>${escapeHTML(item.title)}</h3><p>${escapeHTML(item.content)}</p>`;
     newsList.appendChild(el);
   });
+}
+
+// Bölge geçişi
+navItems.forEach(item=>{
+  item.addEventListener("click",()=>showSection(item.dataset.section));
+});
+
+function showSection(id){
+  sections.forEach(s=>s.classList.remove("active"));
+  const el = document.getElementById(id);
+  if(el) el.classList.add("active");
 }
 
 function escapeHTML(str){ return String(str||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m])); }

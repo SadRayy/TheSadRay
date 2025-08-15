@@ -26,17 +26,47 @@
   <p>Hesabınız yok mu? <span id="goRegister">Kayıt Ol</span></p>
 </div>
 
-<!-- Bilgilendirme Kartı (kayıt sonrası) -->
+<!-- Bilgilendirme Kartı -->
 <div class="container hidden" id="welcomeCard">
   <h2>Hoş Geldiniz!</h2>
-  <p>Bu siteyi kullanırken kurallarımıza uyun. Haberleri görebilirsiniz ve kendi yorumlarınızı bırakabilirsiniz.</p>
+  <p>Siteyi kullanırken kurallara uyun. Haberleri okuyabilir ve yorum bırakabilirsiniz.</p>
   <button id="btnContinue">Devam Et</button>
 </div>
 
-<!-- Haber Akışı -->
-<div class="container hidden" id="newsCard">
-  <h2 id="welcome">Haber Akışı</h2>
-  <div id="newsList"></div>
+<!-- Ana Kullanıcı Arayüzü -->
+<div class="hidden" id="mainUI">
+  <!-- Navigasyon -->
+  <nav id="navbar">
+    <ul>
+      <li data-section="home">Anasayfa</li>
+      <li data-section="about">Hakkımızda</li>
+      <li data-section="announcements">Duyurular</li>
+      <li data-section="forum">Forum</li>
+    </ul>
+  </nav>
+
+  <!-- İçerik alanı -->
+  <div id="content">
+    <h2 id="welcome"></h2>
+    <div id="sections">
+      <div id="home" class="section">
+        <h3>Anasayfa Haberleri</h3>
+        <div id="newsList"></div>
+      </div>
+      <div id="about" class="section hidden">
+        <h3>Hakkımızda</h3>
+        <p>Bu site okul ve kültürel haberler paylaşmak için oluşturulmuştur.</p>
+      </div>
+      <div id="announcements" class="section hidden">
+        <h3>Duyurular</h3>
+        <p>Site ile ilgili duyurular burada yer alacak.</p>
+      </div>
+      <div id="forum" class="section hidden">
+        <h3>Forum</h3>
+        <p>Kullanıcılar ders ve konu paylaşımları için burayı kullanabilir.</p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script type="module" src="app.js"></script>
