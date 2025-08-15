@@ -1,97 +1,32 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    transition: background-color 0.3s;
+    background: linear-gradient(135deg, #1f4037, #99f2c8);
+    margin: 0; padding: 0;
 }
 
-/* Kayıt/Giriş/Bilgilendirme kartları */
+/* Kayıt & Giriş Kartları */
 .container {
-    background-color: rgba(31, 64, 55, 0.2); /* Yeşilimsi arka plan tekrar eklendi */
+    background-color: rgba(255,255,255,0.95);
     padding: 40px;
     border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    width: 350px;
-    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 350px; text-align: center; margin: 50px auto;
 }
 
-h1, h2, h3 {
-    color: #1f4037;
-    margin-bottom: 20px;
-}
+h1,h2,h3 { color:#1f4037; margin-bottom:15px; }
 
-input[type="text"], input[type="password"], input[type="email"] {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    font-size: 15px;
-}
+input { width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #ccc; }
+button { width:100%; padding:12px; margin:15px 0; border-radius:8px; border:none; cursor:pointer; background-color:#1f4037; color:white; font-weight:bold; }
+button:hover { background-color:#4caf50; }
 
-button {
-    width: 100%;
-    padding: 12px;
-    margin: 15px 0;
-    background-color: #1f4037;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-    transition: 0.3s;
-}
+.link { color: blue; cursor: pointer; text-decoration: underline; }
 
-button:hover { background-color: #4caf50; }
-
-.hidden { display: none; }
-
-span { color: blue; cursor: pointer; text-decoration: underline; }
+/* Ana sayfa */
+.main { background-color:white; padding:20px; min-height:100vh; }
+.hidden { display:none; }
 
 /* Navbar */
-nav#navbar {
-    width: 100%;
-    background-color: #ffffff;
-    padding: 15px 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    z-index: 100;
-}
+.navbar { display:flex; justify-content:center; gap:40px; padding:15px; background:#f5f5f5; margin-bottom:20px; }
+.nav-item { cursor:pointer; font-weight:bold; color:#1f4037; }
 
-nav#navbar ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    gap: 180px; /* Aralık daha da artırıldı */
-    padding: 0;
-    margin: 0;
-}
-
-nav#navbar li {
-    cursor: pointer;
-    font-weight: bold;
-    color: #1f4037;
-    transition: 0.2s;
-}
-
-nav#navbar li:hover { color: #4caf50; }
-
-#content {
-    padding-top: 80px; /* navbar yüksekliği kadar boşluk */
-    width: 90%;
-    max-width: 1000px;
-}
-
-/* Ana içerik bölümleri */
-.section { display: none; }
-.section.active { display: block; }
-
-.news { margin-top: 15px; padding: 15px; border-radius: 10px; background-color: #eaf4f4; }
+.news, .forum-item { background:#eaf4f4; padding:10px; margin:5px 0; border-radius:8px; }

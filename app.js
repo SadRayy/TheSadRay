@@ -1,23 +1,22 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
-  authDomain: "sadrayy-site.firebaseapp.com",
-  projectId: "sadrayy-site",
-  storageBucket: "sadrayy-site.firebasestorage.app",
-  messagingSenderId: "302147777701",
-  appId: "1:302147777701:web:d701293a09ab61d85f894c",
-  measurementId: "G-C9HVQ0XXBJ"
+    apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
+    authDomain: "sadrayy-site.firebaseapp.com",
+    projectId: "sadrayy-site",
+    storageBucket: "sadrayy-site.firebasestorage.app",
+    messagingSenderId: "302147777701",
+    appId: "1:302147777701:web:d701293a09ab61d85f894c",
+    measurementId: "G-C9HVQ0XXBJ"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const registerCard = document.getElementById("registerCard");
-const loginCard    = document.getElementById("loginCard");
-const welcomeCard  = document.getElementById("welcomeCard");
-const mainUI       = document.getElementById("mainUI");
+const loginCard = document.getElementById("loginCard");
+const newsCard = document.getElementById("newsCard");
 
 const regNick = document.getElementById("regNick");
 const regPass = document.getElementById("regPass");
@@ -30,90 +29,108 @@ const btnLogin = document.getElementById("btnLogin");
 const goLogin = document.getElementById("goLogin");
 const goRegister = document.getElementById("goRegister");
 
-const btnContinue = document.getElementById("btnContinue");
 const welcome = document.getElementById("welcome");
 const newsList = document.getElementById("newsList");
 
-const navItems = document.querySelectorAll("nav#navbar li");
-const sections = document.querySelectorAll(".section");
+const forumList = document.getElementById("forumList");
+const forumMsg = document.getElementById("forumMsg");
+const btnForum = document.getElementById("btnForum");
 
-goLogin.addEventListener("click", () => {
-  registerCard.classList.add("hidden");
-  loginCard.classList.remove("hidden");
-});
+const nicknameKey = "sr_nickname";
 
-goRegister.addEventListener("click", () => {
-  loginCard.classList.add("hidden");
-  registerCard.classList.remove("hidden");
-});
+// Form geçişleri
+goLogin.addEventListener("click", ()=>{ registerCard.classList.add("hidden"); loginCard.classList.remove("hidden"); });
+goRegister.addEventListener("click", ()=>{ loginCard.classList.add("hidden"); registerCard.classList.remove("hidden"); });
 
 // Kayıt
-btnRegister.addEventListener("click", async () => {
-  const nick = (regNick.value||"").trim();
-  const pass = (regPass.value||"").trim();
-  if(!nick || !pass){ alert("Tüm alanları doldurun."); return; }
-  if(!/^[a-zA-Z0-9_.-]{3,20}$/.test(nick)){ alert("Nickname 3-20 karakter olmalı."); return; }
-
-  const ref = doc(db,"users",nick);
-  const snap = await getDoc(ref);
-  if(snap.exists()){ alert("Bu nickname zaten kullanılıyor."); return; }
-
-  await setDoc(ref, {password: pass, createdAt: Date.now()});
-  registerCard.classList.add("hidden");
-  welcomeCard.classList.remove("hidden");
-});
-
-// Devam Et butonu
-btnContinue.addEventListener("click", async ()=>{
-  const nick = (regNick.value||"").trim();
-  welcomeCard.classList.add("hidden");
-  mainUI.classList.remove("hidden");
-  document.body.style.backgroundColor = "#ffffff";
-  welcome.textContent = `Hoş geldin, ${nick}`;
-  showSection("home");
-  await loadNews();
+btnRegister.addEventListener("click", async ()=>{
+    const nick = (regNick.value||"").trim();
+    const pass = (regPass.value||"").trim();
+    if(!nick||!pass){ alert("Lütfen tüm alanları doldurun"); return; }
+    try{
+        const ref = doc(db,"users",nick);
+        const snap = await getDoc(ref);
+        if(snap.exists()){ alert("Bu kullanıcı zaten var"); return; }
+        await setDoc(ref,{password:pass, createdAt: Date.now()});
+        localStorage.setItem(nicknameKey,nick);
+        openNews(nick);
+    }catch(e){ alert("Hata: "+e.message); }
 });
 
 // Giriş
-btnLogin.addEventListener("click", async () => {
-  const nick = (logNick.value||"").trim();
-  const pass = (logPass.value||"").trim();
-  if(!nick || !pass){ alert("Tüm alanları doldurun."); return; }
-
-  const ref = doc(db,"users",nick);
-  const snap = await getDoc(ref);
-  if(!snap.exists()){ alert("Kullanıcı bulunamadı."); return; }
-  if(snap.data().password!==pass){ alert("Şifre yanlış."); return; }
-
-  loginCard.classList.add("hidden");
-  mainUI.classList.remove("hidden");
-  document.body.style.backgroundColor = "#ffffff";
-  welcome.textContent = `Hoş geldin, ${nick}`;
-  showSection("home");
-  await loadNews();
+btnLogin.addEventListener("click", async ()=>{
+    const nick = (logNick.value||"").trim();
+    const pass = (logPass.value||"").trim();
+    if(!nick||!pass){ alert("Lütfen tüm alanları doldurun"); return; }
+    try{
+        const ref = doc(db,"users",nick);
+        const snap = await getDoc(ref);
+        if(!snap.exists()){ alert("Kullanıcı bulunamadı"); return; }
+        if(snap.data().password!==pass){ alert("Şifre yanlış"); return; }
+        localStorage.setItem(nicknameKey,nick);
+        openNews(nick);
+    }catch(e){ alert("Hata: "+e.message); }
 });
 
+// Haber & forum aç
+async function openNews(nick){
+    registerCard.classList.add("hidden");
+    loginCard.classList.add("hidden");
+    newsCard.classList.remove("hidden");
+    welcome.textContent = `Hoş geldin, ${nick}`;
+    await loadNews();
+    await loadForum();
+}
+
+// Navbar tıklama
+document.querySelectorAll(".nav-item").forEach(el=>{
+    el.addEventListener("click",()=>{
+        const target = el.dataset.target;
+        document.querySelectorAll("section").forEach(s=>s.style.display="none");
+        document.getElementById(target).style.display="block";
+    });
+});
+
+// Haberleri çek
 async function loadNews(){
-  newsList.innerHTML = "";
-  const q = await getDocs(collection(db,"news"));
-  if(q.empty){ newsList.innerHTML="<div class='news'><em>Henüz haber yok.</em></div>"; return; }
-  q.forEach(d=>{
-    const item = d.data();
-    const el = document.createElement("div");
-    el.className="news";
-    el.innerHTML=`<h3>${escapeHTML(item.title)}</h3><p>${escapeHTML(item.content)}</p>`;
-    newsList.appendChild(el);
-  });
+    newsList.innerHTML="";
+    const q = await getDocs(collection(db,"news"));
+    if(q.empty){ newsList.innerHTML="<em>Henüz haber yok.</em>"; return; }
+    q.forEach(d=>{
+        const item = d.data();
+        const el = document.createElement("div");
+        el.className="news";
+        el.innerHTML=`<h4>${item.title||"Başlık"}</h4><p>${item.content||""}</p>`;
+        newsList.appendChild(el);
+    });
 }
 
-navItems.forEach(item=>{
-  item.addEventListener("click",()=>showSection(item.dataset.section));
+// Forum yükle
+async function loadForum(){
+    forumList.innerHTML="";
+    const q = await getDocs(collection(db,"forum"));
+    if(q.empty){ forumList.innerHTML="<em>Henüz mesaj yok.</em>"; return; }
+    q.forEach(d=>{
+        const item = d.data();
+        const el = document.createElement("div");
+        el.className="forum-item";
+        el.textContent=`${item.author}: ${item.content}`;
+        forumList.appendChild(el);
+    });
+}
+
+// Forum mesaj gönder
+btnForum.addEventListener("click", async ()=>{
+    const nick = localStorage.getItem(nicknameKey);
+    const content = (forumMsg.value||"").trim();
+    if(!content){ alert("Mesaj boş olamaz"); return; }
+    await addDoc(collection(db,"forum"),{
+        author: nick,
+        content: content,
+        createdAt: Date.now()
+    });
+    forumMsg.value="";
+    await loadForum();
 });
 
-function showSection(id){
-  sections.forEach(s=>s.classList.remove("active"));
-  const el = document.getElementById(id);
-  if(el) el.classList.add("active");
-}
-
-function escapeHTML(str){ return String(str||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m])); }
+// Sayfa yenilenince otomatik giriş kapalı
