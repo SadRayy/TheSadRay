@@ -1,39 +1,54 @@
-body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(to right, #3a6186, #89253e);
-  color: white;
-  text-align: center;
-  margin: 0;
-  padding: 0;
+:root{
+  --bg1:#1f4037; --bg2:#99f2c8;
+  --card:#ffffff; --text:#1b1b1b;
+  --accent:#1f4037; --accent-2:#4caf50;
+  --muted:#6b7280; --error:#e11d48; --ok:#16a34a;
 }
 
-.container {
-  background-color: rgba(0, 0, 0, 0.7);
-  margin: 50px auto;
-  padding: 20px;
-  width: 300px;
-  border-radius: 15px;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color:var(--text); padding:24px;
 }
+.card{
+  width:100%; max-width:420px; background:var(--card);
+  border-radius:16px; padding:28px; box-shadow:0 20px 40px rgba(0,0,0,.15);
+  animation:pop .25s ease-out;
+}
+.hidden{display:none}
+h2{margin:0 0 14px}
+input{
+  width:100%; padding:12px 14px; margin:8px 0;
+  border:1px solid #e5e7eb; border-radius:10px; font-size:15px;
+  background:#f9fafb; outline:none;
+}
+input:focus{border-color:#9ca3af; background:#fff}
+button{
+  width:100%; padding:12px; border:0; border-radius:10px; cursor:pointer;
+  background:var(--accent); color:#fff; font-weight:700; margin-top:10px;
+  transition:transform .06s ease, background .2s;
+}
+button:hover{background:var(--accent-2)}
+button:active{transform:translateY(1px)}
+.link{
+  background:transparent; color:var(--accent); width:auto; padding:0; margin:0 0 0 6px;
+}
+.link:hover{color:var(--accent-2); background:transparent}
+.muted{color:var(--muted); font-size:14px; text-align:center}
+.row{display:flex; gap:12px; align-items:center}
+.between{justify-content:space-between}
 
-input {
-  width: 90%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 8px;
-  border: none;
-}
+.msg{min-height:22px; font-size:14px; margin-top:10px}
+.msg.error{color:var(--error)}
+.msg.ok{color:var(--ok)}
 
-button {
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  background-color: #ff9800;
-  color: white;
-  font-weight: bold;
+#newsList{display:grid; gap:12px; margin-top:8px}
+.news{
+  padding:14px; border:1px solid #e5e7eb; border-radius:12px; background:#f8fafc;
 }
+.news h3{margin:0 0 6px}
+#welcome{font-size:14px; color:var(--muted)}
 
-button:hover {
-  background-color: #e68900;
-}
+@keyframes pop{from{transform:scale(.98);opacity:0} to{transform:scale(1);opacity:1}}

@@ -1,36 +1,44 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Okul Blog Giriş</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sadrayy • Giriş</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-  <div class="container">
+  <!-- KAYIT -->
+  <div class="card" id="registerCard">
     <h2>Kayıt Ol</h2>
-    <input type="text" id="registerName" placeholder="Adınız">
-    <input type="email" id="registerEmail" placeholder="E-posta">
-    <input type="password" id="registerPassword" placeholder="Şifre">
-    <button id="registerBtn">Kayıt Ol</button>
-
-    <p>Zaten hesabınız var mı? <a href="#" id="showLogin">Giriş Yap</a></p>
-
-    <hr>
-    <button id="googleLoginBtn">Google ile Giriş Yap</button>
+    <input id="regNick" type="text" placeholder="Nickname" autocomplete="username" />
+    <input id="regPass" type="password" placeholder="Şifre" autocomplete="new-password" />
+    <button id="btnRegister">Kayıt Ol</button>
+    <p class="muted">Zaten hesabın var mı?
+      <button class="link" id="goLogin" type="button">Giriş Yap</button>
+    </p>
+    <p id="regMsg" class="msg"></p>
   </div>
 
-  <div class="container" style="display:none;">
+  <!-- GİRİŞ -->
+  <div class="card hidden" id="loginCard">
     <h2>Giriş Yap</h2>
-    <input type="email" id="loginEmail" placeholder="E-posta">
-    <input type="password" id="loginPassword" placeholder="Şifre">
-    <button id="loginBtn">Giriş Yap</button>
+    <input id="logNick" type="text" placeholder="Nickname" autocomplete="username" />
+    <input id="logPass" type="password" placeholder="Şifre" autocomplete="current-password" />
+    <button id="btnLogin">Giriş Yap</button>
+    <p class="muted">Hesabın yok mu?
+      <button class="link" id="goRegister" type="button">Kayıt Ol</button>
+    </p>
+    <p id="logMsg" class="msg"></p>
+  </div>
 
-    <p>Hesabınız yok mu? <a href="#" id="showRegister">Kayıt Ol</a></p>
-
-    <hr>
-    <button id="googleLoginBtnLogin">Google ile Giriş Yap</button>
+  <!-- HABERLER -->
+  <div class="card hidden" id="newsCard">
+    <div class="row between">
+      <h2>Haber Akışı</h2>
+      <div id="welcome"></div>
+    </div>
+    <div id="newsList"></div>
   </div>
 
   <script type="module" src="app.js"></script>
