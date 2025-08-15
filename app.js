@@ -16,7 +16,7 @@ const db = getFirestore(app);
 
 const registerCard = document.getElementById("registerCard");
 const loginCard = document.getElementById("loginCard");
-const newsCard = document.getElementById("newsCard");
+const mainScreen = document.getElementById("mainScreen");
 
 const regNick = document.getElementById("regNick");
 const regPass = document.getElementById("regPass");
@@ -40,7 +40,6 @@ const forumMessages = document.getElementById("forumMessages");
 
 const nicknameKey = "sr_nickname";
 
-// Navbar bölümler
 const navHome = document.getElementById("navHome");
 const navNews = document.getElementById("navNews");
 const navForum = document.getElementById("navForum");
@@ -50,7 +49,7 @@ const homeSection = document.getElementById("homeSection");
 const forumSection = document.getElementById("forumSection");
 const aboutSection = document.getElementById("aboutSection");
 
-// Form geçişleri
+// Geçişler
 goLogin.addEventListener("click", ()=>{
   registerCard.classList.add("hidden");
   loginCard.classList.remove("hidden");
@@ -75,7 +74,6 @@ btnRegister.addEventListener("click", async ()=>{
     const ref = doc(db,"users",nick);
     if((await getDoc(ref)).exists()){ regMsg.textContent="Bu nickname kullanılıyor"; regMsg.classList.add("error"); return; }
     await setDoc(ref,{password:pass,createdAt:Date.now()});
-    localStorage.setItem(nicknameKey,nick);
     openNews(nick);
   }catch(e){ regMsg.textContent="Hata: "+(e?.message||e); regMsg.classList.add("error"); }
 });
@@ -91,18 +89,17 @@ btnLogin.addEventListener("click", async ()=>{
     const snap = await getDoc(ref);
     if(!snap.exists()){ logMsg.textContent="Kullanıcı bulunamadı"; logMsg.classList.add("error"); return; }
     if(snap.data().password!==pass){ logMsg.textContent="Şifre yanlış"; logMsg.classList.add("error"); return; }
-    localStorage.setItem(nicknameKey,nick);
     openNews(nick);
   }catch(e){ logMsg.textContent="Hata: "+(e?.message||e); logMsg.classList.add("error"); }
 });
 
-// Haber ekranı aç
+// Ana ekran
 async function openNews(nick){
   registerCard.classList.add("hidden");
   loginCard.classList.add("hidden");
-  newsCard.classList.remove("hidden");
+  mainScreen.classList.remove("hidden");
   welcome.textContent=`Hoş geldin, ${nick}`;
-  await loadNews();
+  loadNews();
   loadForum();
 }
 
@@ -134,10 +131,10 @@ function loadForum(){
   });
 }
 
-// Forum mesaj gönder
+// Mesaj gönder
 sendMsg.addEventListener("click", async ()=>{
   const text=clean(forumInput.value);
-  const author=localStorage.getItem(nicknameKey);
+  const author=regNick.value || logNick.value;
   if(!text||!author) return;
   await addDoc(collection(db,"forum"),{author,text,createdAt:Date.now()});
   forumInput.value="";
