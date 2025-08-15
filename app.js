@@ -71,6 +71,10 @@ btnContinue.addEventListener("click", async ()=>{
   const nick = (regNick.value||"").trim();
   welcomeCard.classList.add("hidden");
   mainUI.classList.remove("hidden");
+
+  // Arka plan beyaz yapıldı
+  document.body.style.backgroundColor = "#ffffff";
+
   welcome.textContent = `Hoş geldin, ${nick}`;
   showSection("home");
   await loadNews();
@@ -89,6 +93,10 @@ btnLogin.addEventListener("click", async () => {
 
   loginCard.classList.add("hidden");
   mainUI.classList.remove("hidden");
+
+  // Arka plan beyaz yapıldı
+  document.body.style.backgroundColor = "#ffffff";
+
   welcome.textContent = `Hoş geldin, ${nick}`;
   showSection("home");
   await loadNews();

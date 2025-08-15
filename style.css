@@ -1,6 +1,6 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1f4037, #99f2c8);
+    background-color: #ffffff; /* Kayıt sonrası beyaz arka plan */
     color: #333;
     margin: 0;
     padding: 0;
@@ -56,19 +56,23 @@ button:hover {
 
 span { color: blue; cursor: pointer; text-decoration: underline; }
 
+/* Navbar */
 nav#navbar {
     width: 100%;
-    background-color: rgba(255,255,255,0.9);
-    padding: 10px 0;
-    margin-bottom: 20px;
+    background-color: #ffffff;
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    z-index: 100;
 }
 
 nav#navbar ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 30px;
+    gap: 50px; /* simetrik aralık */
     padding: 0;
     margin: 0;
 }
@@ -77,6 +81,17 @@ nav#navbar li {
     cursor: pointer;
     font-weight: bold;
     color: #1f4037;
+    transition: 0.2s;
+}
+
+nav#navbar li:hover {
+    color: #4caf50;
+}
+
+#content {
+    padding-top: 80px; /* navbar yüksekliği kadar boşluk */
+    width: 90%;
+    max-width: 1000px;
 }
 
 .section { display: none; }
