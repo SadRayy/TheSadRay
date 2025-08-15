@@ -1,72 +1,89 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getFirestore, doc, setDoc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js";
 
-// Firebase Konfigürasyonu
 const firebaseConfig = {
   apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
-  authDomain: "sadrayy-site.firebaseapp.com",
-  projectId: "sadrayy-site",
-  storageBucket: "sadrayy-site.firebasestorage.app",
-  messagingSenderId: "302147777701",
-  appId: "1:302147777701:web:d701293a09ab61d85f894c",
-  measurementId: "G-C9HVQ0XXBJ"
+  authDomain: "proje-adın.firebaseapp.com",
+  projectId: "proje-adın",
+  storageBucket: "proje-adın.appspot.com",
+  messagingSenderId: "SENİN_MESSAGING_ID",
+  appId: "SENİN_APP_ID"
 };
 
-// Firebase Başlat
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
-// Kayıt kullanıcı
-window.registerUser = async function() {
-  const nickname = document.getElementById("regNickname").value;
-  const password = document.getElementById("regPassword").value;
-  if(!nickname || !password){ alert("Lütfen tüm alanları doldurun."); return; }
+// HTML elementleri
+const registerName = document.getElementById("registerName");
+const registerEmail = document.getElementById("registerEmail");
+const registerPassword = document.getElementById("registerPassword");
+const registerBtn = document.getElementById("registerBtn");
 
-  const userDoc = await getDoc(doc(db, "users", nickname));
-  if(userDoc.exists()){ 
-      alert("Bu nickname zaten kullanılıyor!"); 
-      return; 
-  }
+const loginEmail = document.getElementById("loginEmail");
+const loginPassword = document.getElementById("loginPassword");
+const loginBtn = document.getElementById("loginBtn");
 
-  await setDoc(doc(db, "users", nickname), { password });
-  alert("Kayıt başarılı! Giriş ekranına yönlendiriliyorsunuz.");
-  document.getElementById("registerDiv").style.display = "none";
-  document.getElementById("loginDiv").style.display = "block";
-}
+const googleLoginBtn = document.getElementById("googleLoginBtn");
+const googleLoginBtnLogin = document.getElementById("googleLoginBtnLogin");
 
-// Giriş kullanıcı
-window.loginUser = async function() {
-  const nickname = document.getElementById("loginNickname").value;
-  const password = document.getElementById("loginPassword").value;
-  if(!nickname || !password){ alert("Lütfen tüm alanları doldurun."); return; }
+const registerForm = document.querySelectorAll(".container")[0];
+const loginForm = document.querySelectorAll(".container")[1];
 
-  const userDoc = await getDoc(doc(db, "users", nickname));
-  if(!userDoc.exists()) { alert("Kullanıcı bulunamadı!"); return; }
-  if(userDoc.data().password !== password){ alert("Şifre yanlış!"); return; }
+document.getElementById("showLogin").addEventListener("click", () => {
+  registerForm.style.display = "none";
+  loginForm.style.display = "block";
+});
 
-  alert("Giriş başarılı!");
-  document.getElementById("loginDiv").style.display = "none";
-  document.getElementById("newsDiv").style.display = "block";
-  loadNews();
-}
+document.getElementById("showRegister").addEventListener("click", () => {
+  loginForm.style.display = "none";
+  registerForm.style.display = "block";
+});
 
-// Haberleri çek
-async function loadNews() {
-  const newsList = document.getElementById("newsList");
-  newsList.innerHTML = "";
-  const querySnapshot = await getDocs(collection(db, "news"));
-  querySnapshot.forEach((doc) => {
-    const div = document.createElement("div");
-    div.className = "newsItem";
-    div.innerHTML = `<strong>${doc.data().title}</strong><p>${doc.data().content}</p>`;
-    newsList.appendChild(div);
-  });
-}
+// Kayıt ol
+registerBtn.addEventListener("click", () => {
+  createUserWithEmailAndPassword(auth, registerEmail.value, registerPassword.value)
+    .then((userCredential) => {
+      alert("Kayıt başarılı! Hoş geldiniz " + registerName.value);
+      window.location.href = "anasayfa.html";
+    })
+    .catch((error) => {
+      alert("Hata: " + error.message);
+    });
+});
 
-// Event listener ekle
-document.getElementById("registerBtn").addEventListener("click", registerUser);
-document.getElementById("loginBtn").addEventListener("click", loginUser);
-document.getElementById("gotoLogin").addEventListener("click", ()=>{
-  document.getElementById("registerDiv").style.display = "none";
-  document.getElementById("loginDiv").style.display = "block";
+// Giriş yap
+loginBtn.addEventListener("click", () => {
+  signInWithEmailAndPassword(auth, loginEmail.value, loginPassword.value)
+    .then(() => {
+      alert("Giriş başarılı!");
+      window.location.href = "anasayfa.html";
+    })
+    .catch((error) => {
+      alert("Hata: " + error.message);
+    });
+});
+
+// Google ile giriş (Kayıt ol sayfası)
+googleLoginBtn.addEventListener("click", () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      alert(`Hoş geldin ${result.user.displayName}!`);
+      window.location.href = "anasayfa.html";
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+});
+
+// Google ile giriş (Giriş yap sayfası)
+googleLoginBtnLogin.addEventListener("click", () => {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      alert(`Hoş geldin ${result.user.displayName}!`);
+      window.location.href = "anasayfa.html";
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 });

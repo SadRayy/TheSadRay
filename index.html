@@ -1,33 +1,38 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sadrayy Eğlence & Haber Sitesi</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Okul Blog Giriş</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container" id="registerDiv">
-  <h2>Kayıt Ol</h2>
-  <input type="text" id="regNickname" placeholder="Nickname">
-  <input type="password" id="regPassword" placeholder="Şifre">
-  <button id="registerBtn">Kayıt Ol</button>
-  <p>Zaten hesabınız var mı? <span id="gotoLogin" class="link">Giriş Yap</span></p>
-</div>
+  <div class="container">
+    <h2>Kayıt Ol</h2>
+    <input type="text" id="registerName" placeholder="Adınız">
+    <input type="email" id="registerEmail" placeholder="E-posta">
+    <input type="password" id="registerPassword" placeholder="Şifre">
+    <button id="registerBtn">Kayıt Ol</button>
 
-<div class="container" id="loginDiv" style="display:none;">
-  <h2>Giriş Yap</h2>
-  <input type="text" id="loginNickname" placeholder="Nickname">
-  <input type="password" id="loginPassword" placeholder="Şifre">
-  <button id="loginBtn">Giriş Yap</button>
-</div>
+    <p>Zaten hesabınız var mı? <a href="#" id="showLogin">Giriş Yap</a></p>
 
-<div class="container" id="newsDiv" style="display:none;">
-  <h2>Haber Akışı</h2>
-  <div id="newsList"></div>
-</div>
+    <hr>
+    <button id="googleLoginBtn">Google ile Giriş Yap</button>
+  </div>
 
-<script type="module" src="app.js"></script>
+  <div class="container" style="display:none;">
+    <h2>Giriş Yap</h2>
+    <input type="email" id="loginEmail" placeholder="E-posta">
+    <input type="password" id="loginPassword" placeholder="Şifre">
+    <button id="loginBtn">Giriş Yap</button>
+
+    <p>Hesabınız yok mu? <a href="#" id="showRegister">Kayıt Ol</a></p>
+
+    <hr>
+    <button id="googleLoginBtnLogin">Google ile Giriş Yap</button>
+  </div>
+
+  <script type="module" src="app.js"></script>
 </body>
 </html>
