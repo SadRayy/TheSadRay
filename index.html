@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Okul Blog Sitesi</title>
+<title>Sadrayy Haber & Forum</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,8 +14,8 @@
   <input type="text" id="regNick" placeholder="Nickname">
   <input type="password" id="regPass" placeholder="Şifre">
   <button id="btnRegister">Kayıt Ol</button>
-  <p id="regMsg" class="msg"></p>
-  <p>Hesabınız var mı? <span id="goLogin" class="link">Giriş Yap</span></p>
+  <div class="msg" id="regMsg"></div>
+  <p><a href="#" id="goLogin">Zaten hesabınız var mı? Giriş Yap</a></p>
 </div>
 
 <!-- Giriş Kartı -->
@@ -24,30 +24,29 @@
   <input type="text" id="logNick" placeholder="Nickname">
   <input type="password" id="logPass" placeholder="Şifre">
   <button id="btnLogin">Giriş Yap</button>
-  <p id="logMsg" class="msg"></p>
-  <p>Hesabınız yok mu? <span id="goRegister" class="link">Kayıt Ol</span></p>
+  <div class="msg" id="logMsg"></div>
+  <p><a href="#" id="goRegister">Hesabın yok mu? Kayıt Ol</a></p>
 </div>
 
-<!-- Haber ve Forum Kartı -->
-<div class="container hidden" id="newsCard">
-  <h2 id="welcome">Hoş geldin!</h2>
+<!-- Haber & Forum Ekranı -->
+<div class="main" id="newsCard" class="hidden">
+  <nav>
+    <ul class="navbar">
+      <li>ANASAYFA</li>
+      <li>DUYURULAR</li>
+      <li>FORUMLAR</li>
+      <li>HAKKIMIZDA</li>
+    </ul>
+  </nav>
+  <h2 id="welcome"></h2>
 
-  <!-- Navbar -->
-  <div class="navbar">
-    <span class="nav-item" data-section="home">Anasayfa</span>
-    <span class="nav-item" data-section="news">Haberler</span>
-    <span class="nav-item" data-section="announcements">Duyurular</span>
-    <span class="nav-item" data-section="forum">Forum</span>
-  </div>
+  <div id="newsList"></div>
 
-  <!-- Bölümler -->
-  <div id="homeSection" class="section">Anasayfa İçeriği</div>
-  <div id="newsSection" class="section"><div id="newsList"></div></div>
-  <div id="announcementsSection" class="section">Duyurular</div>
-  <div id="forumSection" class="section">
-    <div id="forumList"></div>
-    <input type="text" id="forumInput" placeholder="Mesaj yaz...">
-    <button id="forumSend">Gönder</button>
+  <!-- Forum Mesaj Alanı -->
+  <div class="forum">
+    <input type="text" id="forumInput" placeholder="Mesajını yaz...">
+    <button id="sendMsg">Gönder</button>
+    <div id="forumMessages"></div>
   </div>
 </div>
 
