@@ -1,14 +1,12 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin:0;
-  padding:0;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  margin:0; padding:0;
+  display:flex; justify-content:center; align-items:center;
   min-height:100vh;
   background: linear-gradient(135deg,#1f4037,#99f2c8);
 }
 
+/* Kayıt/Giriş Kartı */
 .container {
   background-color: rgba(255,255,255,0.95);
   padding: 40px;
@@ -17,42 +15,27 @@ body {
   text-align: center;
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
-
 .hidden { display:none; }
-
 h2 { color:#1f4037; margin-bottom:20px; }
-
 input { width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #ccc; }
-
-button {
-  width:100%;
-  padding:12px;
-  margin:15px 0;
-  background-color:#1f4037;
-  color:#fff;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  font-weight:bold;
-}
-
+button { width:100%; padding:12px; margin:15px 0; background-color:#1f4037; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:bold; }
 button:hover { background-color:#4caf50; }
-
 .msg.error { color:red; }
 .msg.ok { color:green; }
 
+/* Navbar */
 nav { background-color:#fff; width:100%; text-align:center; padding:10px 0; position:sticky; top:0; z-index:100; }
-.navbar { display:flex; justify-content:center; gap:40px; list-style:none; margin:0; padding:0; }
+.navbar { display:flex; justify-content:center; gap:50px; list-style:none; margin:0; padding:0; }
 .navbar li { cursor:pointer; font-weight:bold; }
 
+/* Ana içerik */
 .main { width:80%; margin-top:20px; background-color:#fff; padding:20px; border-radius:10px; }
-
+section { margin-bottom:40px; }
 .news { background-color:#f9f9f9; padding:15px; margin:10px 0; border-radius:10px; }
 
-.forum { margin-top:20px; }
+/* Forum */
 #forumInput { width:70%; display:inline-block; padding:8px; border-radius:5px; border:1px solid #ccc; }
 #sendMsg { width:28%; display:inline-block; padding:8px; margin-left:2%; border:none; border-radius:5px; background-color:#1f4037; color:#fff; cursor:pointer; }
 #sendMsg:hover { background-color:#4caf50; }
-
 #forumMessages { margin-top:10px; max-height:300px; overflow-y:auto; }
 .message { background-color:#eaf4f4; padding:8px; margin:5px 0; border-radius:5px; }

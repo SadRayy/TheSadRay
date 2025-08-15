@@ -32,20 +32,29 @@
 <div class="main hidden" id="newsCard">
   <nav>
     <ul class="navbar">
-      <li>ANASAYFA</li>
-      <li>DUYURULAR</li>
-      <li>FORUMLAR</li>
-      <li>HAKKIMIZDA</li>
+      <li id="navHome">ANASAYFA</li>
+      <li id="navNews">DUYURULAR</li>
+      <li id="navForum">FORUMLAR</li>
+      <li id="navAbout">HAKKIMIZDA</li>
     </ul>
   </nav>
-  <h2 id="welcome"></h2>
-  <div id="newsList"></div>
 
-  <div class="forum">
+  <section id="homeSection">
+    <h2 id="welcome"></h2>
+    <div id="newsList"></div>
+  </section>
+
+  <section id="forumSection">
+    <h3>Forum</h3>
     <input type="text" id="forumInput" placeholder="Mesajını yaz...">
     <button id="sendMsg">Gönder</button>
     <div id="forumMessages"></div>
-  </div>
+  </section>
+
+  <section id="aboutSection">
+    <h3>Hakkımızda</h3>
+    <p>Bu site haber, duyuru ve forum amaçlıdır. Kullanıcılar birbirine saygılı olmalı.</p>
+  </section>
 </div>
 
 <script type="module" src="app.js"></script>

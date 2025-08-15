@@ -40,20 +40,28 @@ const forumMessages = document.getElementById("forumMessages");
 
 const nicknameKey = "sr_nickname";
 
+// Navbar bölümler
+const navHome = document.getElementById("navHome");
+const navNews = document.getElementById("navNews");
+const navForum = document.getElementById("navForum");
+const navAbout = document.getElementById("navAbout");
+
+const homeSection = document.getElementById("homeSection");
+const forumSection = document.getElementById("forumSection");
+const aboutSection = document.getElementById("aboutSection");
+
 // Form geçişleri
-goLogin.addEventListener("click", () => {
+goLogin.addEventListener("click", ()=>{
   registerCard.classList.add("hidden");
   loginCard.classList.remove("hidden");
-  regMsg.textContent = "";
+  regMsg.textContent="";
 });
-
-goRegister.addEventListener("click", () => {
+goRegister.addEventListener("click", ()=>{
   loginCard.classList.add("hidden");
   registerCard.classList.remove("hidden");
-  logMsg.textContent = "";
+  logMsg.textContent="";
 });
 
-// Yardımcı
 const clean = s => (s||"").trim();
 
 // Kayıt
@@ -63,7 +71,6 @@ btnRegister.addEventListener("click", async ()=>{
   regMsg.className="msg";
   if(!nick||!pass){ regMsg.textContent="Tüm alanları doldurun"; regMsg.classList.add("error"); return; }
   if(!/^[a-zA-Z0-9_.-]{3,20}$/.test(nick)){ regMsg.textContent="Nickname 3-20 karakter olmalı"; regMsg.classList.add("error"); return; }
-
   try{
     const ref = doc(db,"users",nick);
     if((await getDoc(ref)).exists()){ regMsg.textContent="Bu nickname kullanılıyor"; regMsg.classList.add("error"); return; }
@@ -89,7 +96,7 @@ btnLogin.addEventListener("click", async ()=>{
   }catch(e){ logMsg.textContent="Hata: "+(e?.message||e); logMsg.classList.add("error"); }
 });
 
-// Haber ekranını aç
+// Haber ekranı aç
 async function openNews(nick){
   registerCard.classList.add("hidden");
   loginCard.classList.add("hidden");
@@ -119,7 +126,7 @@ function loadForum(){
     forumMessages.innerHTML="";
     snap.forEach(d=>{
       const data=d.data();
-      const el = document.createElement("div");
+      const el=document.createElement("div");
       el.className="message";
       el.textContent=`${data.author}: ${data.text}`;
       forumMessages.appendChild(el);
@@ -129,9 +136,15 @@ function loadForum(){
 
 // Forum mesaj gönder
 sendMsg.addEventListener("click", async ()=>{
-  const text = clean(forumInput.value);
-  const author = localStorage.getItem(nicknameKey);
+  const text=clean(forumInput.value);
+  const author=localStorage.getItem(nicknameKey);
   if(!text||!author) return;
   await addDoc(collection(db,"forum"),{author,text,createdAt:Date.now()});
   forumInput.value="";
 });
+
+// Navbar tıklama
+navHome.addEventListener("click",()=>{homeSection.scrollIntoView({behavior:"smooth"});});
+navNews.addEventListener("click",()=>{homeSection.scrollIntoView({behavior:"smooth"});});
+navForum.addEventListener("click",()=>{forumSection.scrollIntoView({behavior:"smooth"});});
+navAbout.addEventListener("click",()=>{aboutSection.scrollIntoView({behavior:"smooth"});});
