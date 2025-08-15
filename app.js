@@ -1,7 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-// Firebase ayarları
 const firebaseConfig = {
   apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
   authDomain: "sadrayy-site.firebaseapp.com",
@@ -15,7 +14,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Elemanlar
 const registerCard = document.getElementById("registerCard");
 const loginCard    = document.getElementById("loginCard");
 const welcomeCard  = document.getElementById("welcomeCard");
@@ -39,7 +37,6 @@ const newsList = document.getElementById("newsList");
 const navItems = document.querySelectorAll("nav#navbar li");
 const sections = document.querySelectorAll(".section");
 
-// Form geçişleri
 goLogin.addEventListener("click", () => {
   registerCard.classList.add("hidden");
   loginCard.classList.remove("hidden");
@@ -71,10 +68,7 @@ btnContinue.addEventListener("click", async ()=>{
   const nick = (regNick.value||"").trim();
   welcomeCard.classList.add("hidden");
   mainUI.classList.remove("hidden");
-
-  // Ana arka plan beyaz
   document.body.style.backgroundColor = "#ffffff";
-
   welcome.textContent = `Hoş geldin, ${nick}`;
   showSection("home");
   await loadNews();
@@ -93,16 +87,12 @@ btnLogin.addEventListener("click", async () => {
 
   loginCard.classList.add("hidden");
   mainUI.classList.remove("hidden");
-
-  // Ana arka plan beyaz
   document.body.style.backgroundColor = "#ffffff";
-
   welcome.textContent = `Hoş geldin, ${nick}`;
   showSection("home");
   await loadNews();
 });
 
-// Haberleri yükle
 async function loadNews(){
   newsList.innerHTML = "";
   const q = await getDocs(collection(db,"news"));
@@ -116,7 +106,6 @@ async function loadNews(){
   });
 }
 
-// Navbar tıklamaları
 navItems.forEach(item=>{
   item.addEventListener("click",()=>showSection(item.dataset.section));
 });

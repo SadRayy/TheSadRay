@@ -11,7 +11,7 @@ body {
 
 /* Kayıt/Giriş/Bilgilendirme kartları */
 .container {
-    background-color: rgba(31, 64, 55, 0.1); /* Kayıt ve giriş kartlarının arka planı değişmez */
+    background-color: rgba(31, 64, 55, 0.2); /* Yeşilimsi arka plan tekrar eklendi */
     padding: 40px;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
@@ -70,7 +70,7 @@ nav#navbar ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    gap: 80px; /* Artırılmış aralıklar */
+    gap: 180px; /* Aralık daha da artırıldı */
     padding: 0;
     margin: 0;
 }
