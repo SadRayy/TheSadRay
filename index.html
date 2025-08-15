@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sadrayy Okul Blog & Haber Sitesi</title>
+<title>Okul Blog Sitesi</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,7 +14,8 @@
   <input type="text" id="regNick" placeholder="Nickname">
   <input type="password" id="regPass" placeholder="Şifre">
   <button id="btnRegister">Kayıt Ol</button>
-  <p>Hesabın var mı? <span id="goLogin" class="link">Giriş Yap</span></p>
+  <p id="regMsg" class="msg"></p>
+  <p>Hesabınız var mı? <span id="goLogin" class="link">Giriş Yap</span></p>
 </div>
 
 <!-- Giriş Kartı -->
@@ -23,41 +24,31 @@
   <input type="text" id="logNick" placeholder="Nickname">
   <input type="password" id="logPass" placeholder="Şifre">
   <button id="btnLogin">Giriş Yap</button>
-  <p>Hesabın yok mu? <span id="goRegister" class="link">Kayıt Ol</span></p>
+  <p id="logMsg" class="msg"></p>
+  <p>Hesabınız yok mu? <span id="goRegister" class="link">Kayıt Ol</span></p>
 </div>
 
-<!-- Ana Haber & Forum Sayfası -->
-<div class="main hidden" id="newsCard">
-  <nav class="navbar">
-    <span class="nav-item" data-target="home">Anasayfa</span>
-    <span class="nav-item" data-target="duyurular">Duyurular</span>
-    <span class="nav-item" data-target="forum">Forumlar</span>
-    <span class="nav-item" data-target="hakkimizda">Hakkımızda</span>
-  </nav>
+<!-- Haber ve Forum Kartı -->
+<div class="container hidden" id="newsCard">
+  <h2 id="welcome">Hoş geldin!</h2>
 
-  <h2 id="welcome"></h2>
+  <!-- Navbar -->
+  <div class="navbar">
+    <span class="nav-item" data-section="home">Anasayfa</span>
+    <span class="nav-item" data-section="news">Haberler</span>
+    <span class="nav-item" data-section="announcements">Duyurular</span>
+    <span class="nav-item" data-section="forum">Forum</span>
+  </div>
 
-  <section id="home">
-    <h3>Haberler</h3>
-    <div id="newsList"></div>
-  </section>
-
-  <section id="forum">
-    <h3>Forum</h3>
+  <!-- Bölümler -->
+  <div id="homeSection" class="section">Anasayfa İçeriği</div>
+  <div id="newsSection" class="section"><div id="newsList"></div></div>
+  <div id="announcementsSection" class="section">Duyurular</div>
+  <div id="forumSection" class="section">
     <div id="forumList"></div>
-    <input type="text" id="forumMsg" placeholder="Mesajınızı yazın">
-    <button id="btnForum">Gönder</button>
-  </section>
-
-  <section id="duyurular">
-    <h3>Duyurular</h3>
-    <p>Henüz duyuru yok.</p>
-  </section>
-
-  <section id="hakkimizda">
-    <h3>Hakkımızda</h3>
-    <p>Bu site okul haberleri, forumlar ve kültürel içerikler için kurulmuştur.</p>
-  </section>
+    <input type="text" id="forumInput" placeholder="Mesaj yaz...">
+    <button id="forumSend">Gönder</button>
+  </div>
 </div>
 
 <script type="module" src="app.js"></script>

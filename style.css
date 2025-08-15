@@ -1,32 +1,76 @@
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #1f4037, #99f2c8);
-    margin: 0; padding: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
 }
 
-/* Kayıt & Giriş Kartları */
 .container {
-    background-color: rgba(255,255,255,0.95);
-    padding: 40px;
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
     border-radius: 15px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    width: 350px; text-align: center; margin: 50px auto;
+    width: 400px;
+    margin-top: 20px;
+    text-align: center;
 }
 
-h1,h2,h3 { color:#1f4037; margin-bottom:15px; }
+h1, h2 { color: #1f4037; margin-bottom: 20px; }
 
-input { width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #ccc; }
-button { width:100%; padding:12px; margin:15px 0; border-radius:8px; border:none; cursor:pointer; background-color:#1f4037; color:white; font-weight:bold; }
-button:hover { background-color:#4caf50; }
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+}
 
-.link { color: blue; cursor: pointer; text-decoration: underline; }
+button {
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0;
+    background-color: #1f4037;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    transition: 0.3s;
+}
 
-/* Ana sayfa */
-.main { background-color:white; padding:20px; min-height:100vh; }
-.hidden { display:none; }
+button:hover { background-color: #4caf50; }
+
+.msg { font-size: 14px; margin-top: 5px; }
+.error { color: red; }
+.ok { color: green; }
+
+.link { color: #1f4037; cursor: pointer; text-decoration: underline; }
+
+.hidden { display: none; }
 
 /* Navbar */
-.navbar { display:flex; justify-content:center; gap:40px; padding:15px; background:#f5f5f5; margin-bottom:20px; }
-.nav-item { cursor:pointer; font-weight:bold; color:#1f4037; }
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    background-color: #e0e0e0;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
 
-.news, .forum-item { background:#eaf4f4; padding:10px; margin:5px 0; border-radius:8px; }
+.nav-item { cursor: pointer; font-weight: bold; }
+
+/* Section */
+.section { display: none; margin-top: 10px; text-align: left; }
+
+.section.active { display: block; }
+
+/* Forum */
+#forumList { max-height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+.forum-item { padding: 5px; border-bottom: 1px solid #ddd; }
