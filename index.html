@@ -3,47 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sadrayy Haber Sitesi</title>
+<title>Sadrayy Eğlence & Haber Sitesi</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Kayıt Kartı -->
 <div class="container" id="registerCard">
   <h2>Kayıt Ol</h2>
   <input type="text" id="regNick" placeholder="Nickname">
   <input type="password" id="regPass" placeholder="Şifre">
   <button id="btnRegister">Kayıt Ol</button>
-  <p id="regMsg" class="msg"></p>
-  <p class="switch">Hesabınız var mı? <span id="goLogin">Giriş Yap</span></p>
+  <p>Zaten hesabınız var mı? <span id="goLogin" class="link">Giriş Yap</span></p>
 </div>
 
-<!-- Giriş Kartı -->
 <div class="container hidden" id="loginCard">
   <h2>Giriş Yap</h2>
   <input type="text" id="logNick" placeholder="Nickname">
   <input type="password" id="logPass" placeholder="Şifre">
   <button id="btnLogin">Giriş Yap</button>
-  <p id="logMsg" class="msg"></p>
-  <p class="switch">Hesabınız yok mu? <span id="goRegister">Kayıt Ol</span></p>
+  <p>Hesabınız yok mu? <span id="goRegister" class="link">Kayıt Ol</span></p>
 </div>
 
-<!-- Bilgilendirme Kartı -->
-<div class="container hidden" id="infoCard">
+<div class="container hidden" id="welcomeCard">
   <h2>Bilgilendirme</h2>
-  <p>Bu site haberler ve yardımlaşma amaçlıdır. Kurallara uygun davranın ve paylaşımlarda saygılı olun.</p>
-  <label>
-    <input type="checkbox" id="infoCheck"> Kuralları okudum ve kabul ediyorum
-  </label>
-  <button id="infoAccept">Devam Et</button>
+  <p>Bu site, dünyadan, spordan ve kültürel haberlerden bilgiler paylaşır. İçeriklere yorum veya emoji bırakabilirsiniz. Devam etmek için kutucuğu işaretleyin ve “Devam Et”e basın.</p>
+  <label><input type="checkbox" id="agreeBox"> Kuralları okudum ve kabul ediyorum</label>
+  <button id="btnContinue">Devam Et</button>
 </div>
 
-<!-- Haber Akışı Kartı -->
 <div class="container hidden" id="newsCard">
-  <h2 id="welcome"></h2>
+  <h2 id="welcome">Haber Akışı</h2>
   <div id="newsList"></div>
 </div>
 
-<script type="module" src="app.js"></script>
+<script type="module" src="app.js" defer></script>
 </body>
 </html>
