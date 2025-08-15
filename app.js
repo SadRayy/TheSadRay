@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-/* Firebase Konfigürasyonu */
+// Firebase ayarları
 const firebaseConfig = {
   apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
   authDomain: "sadrayy-site.firebaseapp.com",
@@ -15,15 +15,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// UI elemanları
+// Elemanlar
 const registerCard = document.getElementById("registerCard");
-const loginCard = document.getElementById("loginCard");
-const welcomeCard = document.getElementById("welcomeCard");
-const newsCard = document.getElementById("newsCard");
+const loginCard    = document.getElementById("loginCard");
+const welcomeCard  = document.getElementById("welcomeCard");
+const newsCard     = document.getElementById("newsCard");
 
 const regNick = document.getElementById("regNick");
 const regPass = document.getElementById("regPass");
 const btnRegister = document.getElementById("btnRegister");
+
 const logNick = document.getElementById("logNick");
 const logPass = document.getElementById("logPass");
 const btnLogin = document.getElementById("btnLogin");
@@ -31,11 +32,9 @@ const btnLogin = document.getElementById("btnLogin");
 const goLogin = document.getElementById("goLogin");
 const goRegister = document.getElementById("goRegister");
 
+const btnContinue = document.getElementById("btnContinue");
 const newsList = document.getElementById("newsList");
 const welcome = document.getElementById("welcome");
-
-const acceptRules = document.getElementById("acceptRules");
-const btnContinue = document.getElementById("btnContinue");
 
 // Form geçişleri
 goLogin.addEventListener("click", () => {
@@ -50,46 +49,42 @@ goRegister.addEventListener("click", () => {
 
 // Kayıt
 btnRegister.addEventListener("click", async () => {
-  const nick = (regNick.value || "").trim();
-  const pass = (regPass.value || "").trim();
+  const nick = (regNick.value||"").trim();
+  const pass = (regPass.value||"").trim();
+  if(!nick || !pass){ alert("Tüm alanları doldurun."); return; }
+  if(!/^[a-zA-Z0-9_.-]{3,20}$/.test(nick)){ alert("Nickname 3-20 karakter olmalı."); return; }
 
-  if(!nick || !pass) return alert("Lütfen tüm alanları doldurun.");
-  if(!/^[a-zA-Z0-9_.-]{3,20}$/.test(nick)) return alert("Nickname 3-20 karakter olmalı.");
+  const ref = doc(db,"users",nick);
+  const snap = await getDoc(ref);
+  if(snap.exists()){ alert("Bu nickname zaten kullanılıyor."); return; }
 
-  try {
-    const ref = doc(db,"users",nick);
-    const snap = await getDoc(ref);
-    if(snap.exists()) return alert("Bu nickname zaten kullanılıyor.");
+  await setDoc(ref, {password: pass, createdAt: Date.now()});
+  registerCard.classList.add("hidden");
+  welcomeCard.classList.remove("hidden");
+});
 
-    await setDoc(ref, { password: pass, createdAt: Date.now() });
-    registerCard.classList.add("hidden");
-    welcomeCard.classList.remove("hidden");
-  } catch(e){ alert("Hata: "+e.message); }
+// Devam Et butonu
+btnContinue.addEventListener("click", async ()=>{
+  const nick = (regNick.value||"").trim();
+  welcomeCard.classList.add("hidden");
+  newsCard.classList.remove("hidden");
+  welcome.textContent = `Hoş geldin, ${nick}`;
+  await loadNews();
 });
 
 // Giriş
 btnLogin.addEventListener("click", async () => {
-  const nick = (logNick.value || "").trim();
-  const pass = (logPass.value || "").trim();
-  if(!nick || !pass) return alert("Lütfen tüm alanları doldurun.");
+  const nick = (logNick.value||"").trim();
+  const pass = (logPass.value||"").trim();
+  if(!nick || !pass){ alert("Tüm alanları doldurun."); return; }
 
-  try {
-    const ref = doc(db,"users",nick);
-    const snap = await getDoc(ref);
-    if(!snap.exists()) return alert("Kullanıcı bulunamadı.");
-    if(snap.data().password !== pass) return alert("Şifre yanlış.");
+  const ref = doc(db,"users",nick);
+  const snap = await getDoc(ref);
+  if(!snap.exists()){ alert("Kullanıcı bulunamadı."); return; }
+  if(snap.data().password!==pass){ alert("Şifre yanlış."); return; }
 
-    loginCard.classList.add("hidden");
-    welcomeCard.classList.remove("hidden");
-  } catch(e){ alert("Hata: "+e.message); }
-});
-
-// Devam Et butonu
-btnContinue.addEventListener("click", async () => {
-  if(!acceptRules.checked) return alert("Kuralları kabul etmelisiniz.");
-  welcomeCard.classList.add("hidden");
+  loginCard.classList.add("hidden");
   newsCard.classList.remove("hidden");
-  const nick = regNick.value.trim() || logNick.value.trim();
   welcome.textContent = `Hoş geldin, ${nick}`;
   await loadNews();
 });
@@ -97,15 +92,15 @@ btnContinue.addEventListener("click", async () => {
 // Haberleri yükle
 async function loadNews(){
   newsList.innerHTML = "";
-  try{
-    const q = await getDocs(collection(db,"news"));
-    if(q.empty) newsList.innerHTML = `<div class="news"><em>Henüz haber yok.</em></div>`;
-    else q.forEach(d=>{
-      const item = d.data();
-      const el = document.createElement("div");
-      el.className="news";
-      el.innerHTML=`<h3>${item.title||"Başlık"}</h3><p>${item.content||""}</p>`;
-      newsList.appendChild(el);
-    });
-  }catch(e){ newsList.innerHTML = `<div class="news error">Haberler yüklenemedi: ${e.message}</div>`; }
+  const q = await getDocs(collection(db,"news"));
+  if(q.empty){ newsList.innerHTML="<div class='news'><em>Henüz haber yok.</em></div>"; return; }
+  q.forEach(d=>{
+    const item = d.data();
+    const el = document.createElement("div");
+    el.className="news";
+    el.innerHTML=`<h3>${escapeHTML(item.title)}</h3><p>${escapeHTML(item.content)}</p>`;
+    newsList.appendChild(el);
+  });
 }
+
+function escapeHTML(str){ return String(str||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m])); }

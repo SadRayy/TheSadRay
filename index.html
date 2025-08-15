@@ -8,31 +8,34 @@
 </head>
 <body>
 
+<!-- Kayıt Kartı -->
 <div class="container" id="registerCard">
   <h2>Kayıt Ol</h2>
   <input type="text" id="regNick" placeholder="Nickname">
   <input type="password" id="regPass" placeholder="Şifre">
   <button id="btnRegister">Kayıt Ol</button>
-  <p>Zaten hesabınız var mı? <span id="goLogin" class="link">Giriş Yap</span></p>
+  <p>Zaten hesabınız var mı? <span id="goLogin">Giriş Yap</span></p>
 </div>
 
+<!-- Giriş Kartı -->
 <div class="container hidden" id="loginCard">
   <h2>Giriş Yap</h2>
   <input type="text" id="logNick" placeholder="Nickname">
   <input type="password" id="logPass" placeholder="Şifre">
   <button id="btnLogin">Giriş Yap</button>
-  <p>Hesabınız yok mu? <span id="goRegister" class="link">Kayıt Ol</span></p>
+  <p>Hesabınız yok mu? <span id="goRegister">Kayıt Ol</span></p>
 </div>
 
+<!-- Bilgilendirme Kartı (kayıt sonrası) -->
 <div class="container hidden" id="welcomeCard">
   <h2>Hoş Geldiniz!</h2>
-  <p>Bu site eğlence ve haber amaçlıdır. Kurallar: saygılı olun, spam yapmayın.</p>
-  <label><input type="checkbox" id="acceptRules"> Kuralları okudum ve kabul ediyorum</label>
+  <p>Bu siteyi kullanırken kurallarımıza uyun. Haberleri görebilirsiniz ve kendi yorumlarınızı bırakabilirsiniz.</p>
   <button id="btnContinue">Devam Et</button>
 </div>
 
+<!-- Haber Akışı -->
 <div class="container hidden" id="newsCard">
-  <h2 id="welcome"></h2>
+  <h2 id="welcome">Haber Akışı</h2>
   <div id="newsList"></div>
 </div>
 
