@@ -1,10 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import {
-  getFirestore, doc, getDoc, setDoc,
-  collection, getDocs
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-/* === Firebase Ayarların (senin projen) === */
+/* Firebase Ayarları */
 const firebaseConfig = {
   apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
   authDomain: "sadrayy-site.firebaseapp.com",
@@ -14,14 +11,14 @@ const firebaseConfig = {
   appId: "1:302147777701:web:d701293a09ab61d85f894c",
   measurementId: "G-C9HVQ0XXBJ"
 };
-/* ======================================== */
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// UI elemanları
+/* UI Elemanları */
 const registerCard = document.getElementById("registerCard");
 const loginCard    = document.getElementById("loginCard");
+const welcomeDiv   = document.getElementById("welcomeDiv");
 const newsCard     = document.getElementById("newsCard");
 
 const regNick = document.getElementById("regNick");
@@ -36,10 +33,16 @@ const logMsg = document.getElementById("logMsg");
 
 const goLogin = document.getElementById("goLogin");
 const goRegister = document.getElementById("goRegister");
+
 const newsList = document.getElementById("newsList");
 const welcome = document.getElementById("welcome");
 
-// Form geçişleri
+const acceptRules = document.getElementById("acceptRules");
+const btnContinue = document.getElementById("btnContinue");
+
+const nicknameKey = "sr_nickname";
+
+/* Form geçişleri */
 goLogin.addEventListener("click", () => {
   registerCard.classList.add("hidden");
   loginCard.classList.remove("hidden");
@@ -52,11 +55,21 @@ goRegister.addEventListener("click", () => {
   logMsg.textContent = "";
 });
 
-// Yardımcılar
+/* Yardımcı */
 const clean = (s) => (s || "").trim();
-const nicknameKey = "sr_nickname";
 
-// KAYIT
+/* Checkbox kontrol */
+acceptRules.addEventListener("change", () => {
+  btnContinue.disabled = !acceptRules.checked;
+});
+
+/* Devam Et butonu */
+btnContinue.addEventListener("click", () => {
+  welcomeDiv.classList.add("hidden");
+  newsCard.classList.remove("hidden");
+});
+
+/* Kayıt */
 btnRegister.addEventListener("click", async () => {
   regMsg.className = "msg";
   const nick = clean(regNick.value);
@@ -66,9 +79,8 @@ btnRegister.addEventListener("click", async () => {
     regMsg.textContent = "Lütfen tüm alanları doldurun.";
     regMsg.classList.add("error"); return;
   }
-  // basit nickname doğrulama
   if (!/^[a-zA-Z0-9_.-]{3,20}$/.test(nick)) {
-    regMsg.textContent = "Nickname 3-20 karakter (harf/rakam/._-) olmalı.";
+    regMsg.textContent = "Nickname 3-20 karakter olmalı.";
     regMsg.classList.add("error"); return;
   }
 
@@ -77,25 +89,25 @@ btnRegister.addEventListener("click", async () => {
     const snap = await getDoc(ref);
     if (snap.exists()) {
       regMsg.textContent = "Bu nickname zaten kullanılıyor.";
-      regMsg.classList.add("error");
-      return;
+      regMsg.classList.add("error"); return;
     }
-    // DİKKAT: basit demo – şifre düz metin.
     await setDoc(ref, { password: pass, createdAt: Date.now() });
     localStorage.setItem(nicknameKey, nick);
 
-    regMsg.textContent = "Kayıt başarılı! Giriş yapılıyor...";
+    regMsg.textContent = "Kayıt başarılı!";
     regMsg.classList.add("ok");
 
-    // Giriş ekranını göstermeden direkt haber akışına geç
-    openNews(nick);
+    // Karşılama ekranını göster
+    registerCard.classList.add("hidden");
+    welcomeDiv.classList.remove("hidden");
+    welcome.textContent = `Hoş geldin, ${nick}`;
   } catch (e) {
     regMsg.textContent = "Hata: " + (e?.message || e);
     regMsg.classList.add("error");
   }
 });
 
-// GİRİŞ
+/* Giriş */
 btnLogin.addEventListener("click", async () => {
   logMsg.className = "msg";
   const nick = clean(logNick.value);
@@ -119,56 +131,46 @@ btnLogin.addEventListener("click", async () => {
       logMsg.classList.add("error"); return;
     }
     localStorage.setItem(nicknameKey, nick);
-    openNews(nick);
+
+    // Karşılama ekranını göster
+    loginCard.classList.add("hidden");
+    welcomeDiv.classList.remove("hidden");
+    welcome.textContent = `Hoş geldin, ${nick}`;
   } catch (e) {
     logMsg.textContent = "Hata: " + (e?.message || e);
     logMsg.classList.add("error");
   }
 });
 
-// Haber ekranını aç ve veriyi yükle
-async function openNews(nick){
-  registerCard.classList.add("hidden");
-  loginCard.classList.add("hidden");
-  newsCard.classList.remove("hidden");
-  welcome.textContent = `Hoş geldin, ${nick}`;
-  await loadNews();
-}
-
-// Firestore -> news koleksiyonundan haberleri çek
-async function loadNews(){
+/* Haberleri yükle */
+async function loadNews() {
   newsList.innerHTML = "";
-  try{
+  try {
     const q = await getDocs(collection(db, "news"));
-    if (q.empty){
+    if (q.empty) {
       newsList.innerHTML = `<div class="news"><em>Henüz haber yok.</em></div>`;
       return;
     }
-    q.forEach(d=>{
+    q.forEach(d => {
       const item = d.data();
       const el = document.createElement("div");
       el.className = "news";
-      el.innerHTML = `
-        <h3>${escapeHTML(item.title || "Başlık")}</h3>
-        <p>${escapeHTML(item.content || "")}</p>
-      `;
+      el.innerHTML = `<h3>${escapeHTML(item.title||"Başlık")}</h3><p>${escapeHTML(item.content||"")}</p>`;
       newsList.appendChild(el);
     });
-  }catch(e){
+  } catch(e) {
     newsList.innerHTML = `<div class="news"><span class="msg error">Haberler yüklenemedi: ${e?.message||e}</span></div>`;
   }
 }
 
-// Basit XSS kaçışı
+/* XSS önleme */
 function escapeHTML(str){
-  return String(str || "").replace(/[&<>"']/g, m => ({
-    "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
-  }[m]));
+  return String(str || "").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 }
 
-// Sayfa yenilendiğinde otomatik giriş
+/* Otomatik giriş */
 const last = localStorage.getItem(nicknameKey);
 if (last) {
-  // Haberleri direkt aç (istersen yorum satırına alabilirsin)
-  openNews(last);
+  welcomeDiv.classList.remove("hidden");
+  welcome.textContent = `Hoş geldin, ${last}`;
 }
