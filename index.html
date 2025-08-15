@@ -3,65 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sadrayy Haber & Forum</title>
+<title>Sadrayy Eğlence & Haber Sitesi</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Kayıt Kartı -->
-<div class="container" id="registerCard">
+<!-- Kayıt Ekranı -->
+<div class="container registerCard" id="registerCard">
   <h2>Kayıt Ol</h2>
   <input type="text" id="regNick" placeholder="Nickname">
   <input type="password" id="regPass" placeholder="Şifre">
   <button id="btnRegister">Kayıt Ol</button>
-  <div class="msg" id="regMsg"></div>
-  <p><a href="#" id="goLogin">Zaten hesabınız var mı? Giriş Yap</a></p>
+  <p class="msg" id="regMsg"></p>
+  <p>Hesabınız varsa <span id="goLogin" class="link">Giriş Yap</span></p>
 </div>
 
-<!-- Giriş Kartı -->
-<div class="container hidden" id="loginCard">
+<!-- Giriş Ekranı -->
+<div class="container loginCard hidden" id="loginCard">
   <h2>Giriş Yap</h2>
   <input type="text" id="logNick" placeholder="Nickname">
   <input type="password" id="logPass" placeholder="Şifre">
   <button id="btnLogin">Giriş Yap</button>
-  <div class="msg" id="logMsg"></div>
-  <p><a href="#" id="goRegister">Hesabın yok mu? Kayıt Ol</a></p>
+  <p class="msg" id="logMsg"></p>
+  <p>Hesabınız yoksa <span id="goRegister" class="link">Kayıt Ol</span></p>
 </div>
 
-<!-- Ana Ekran -->
-<div class="main hidden" id="mainScreen">
-
-  <nav>
-    <ul class="navbar">
-      <li id="navHome">ANASAYFA</li>
-      <li id="navNews">DUYURULAR</li>
-      <li id="navForum">FORUMLAR</li>
-      <li id="navAbout">HAKKIMIZDA</li>
-    </ul>
-  </nav>
-
-  <section id="homeSection">
-    <h2 id="welcome"></h2>
-    <p>Hoş geldin! Sitemiz haber, duyuru ve forum bölümlerini içerir.</p>
-  </section>
-
-  <section id="newsSection">
-    <h3>Duyurular</h3>
+<!-- Haber ve Navbar Ekranı -->
+<div class="newsCard hidden" id="newsCard">
+  <div class="navbar">
+    <span class="navItem" data-section="home">Anasayfa</span>
+    <span class="navItem" data-section="announcements">Duyurular</span>
+    <span class="navItem" data-section="forum">Forum</span>
+    <span class="navItem" data-section="about">Hakkında</span>
+  </div>
+  <div class="section" id="home">
+    <h2>Hoş geldin, <span id="welcome"></span></h2>
     <div id="newsList"></div>
-  </section>
-
-  <section id="forumSection">
-    <h3>Forum</h3>
-    <input type="text" id="forumInput" placeholder="Mesajınızı yazın...">
-    <button id="sendMsg">Gönder</button>
-    <div id="forumMessages"></div>
-  </section>
-
-  <section id="aboutSection">
-    <h3>Hakkımızda</h3>
-    <p>Bu site kullanıcıların haber paylaşımı, duyuru takibi ve forum iletişimi yapabileceği bir platformdur. Kullanıcılar birbirine saygılı olmalıdır.</p>
-  </section>
-
+  </div>
+  <div class="section hidden" id="announcements">
+    <h2>Duyurular</h2>
+    <p>Burada tüm duyurular gösterilecek.</p>
+  </div>
+  <div class="section hidden" id="forum">
+    <h2>Forum</h2>
+    <p>Forum sistemi burada olacak.</p>
+  </div>
+  <div class="section hidden" id="about">
+    <h2>Hakkında</h2>
+    <p>Sitenin amacı ve kullanım kuralları burada olacak.</p>
+  </div>
 </div>
 
 <script type="module" src="app.js"></script>
