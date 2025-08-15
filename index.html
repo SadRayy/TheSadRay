@@ -8,41 +8,35 @@
 </head>
 <body>
 
-<!-- Kayıt Ekranı -->
 <div class="container" id="registerCard">
   <h2>Kayıt Ol</h2>
   <input type="text" id="regNick" placeholder="Nickname">
   <input type="password" id="regPass" placeholder="Şifre">
   <button id="btnRegister">Kayıt Ol</button>
-  <p class="msg" id="regMsg"></p>
-  <p><a href="#" id="goLogin">Zaten hesabınız var mı? Giriş yapın</a></p>
+  <p>Hesabınız varsa <span id="goLogin" class="link">Giriş Yap</span></p>
+  <p id="regMsg" class="msg"></p>
 </div>
 
-<!-- Giriş Ekranı -->
 <div class="container hidden" id="loginCard">
   <h2>Giriş Yap</h2>
   <input type="text" id="logNick" placeholder="Nickname">
   <input type="password" id="logPass" placeholder="Şifre">
   <button id="btnLogin">Giriş Yap</button>
-  <p class="msg" id="logMsg"></p>
-  <p><a href="#" id="goRegister">Hesabınız yok mu? Kayıt olun</a></p>
+  <p>Hesabınız yoksa <span id="goRegister" class="link">Kayıt Ol</span></p>
+  <p id="logMsg" class="msg"></p>
 </div>
 
-<!-- Karşılama/Onay Ekranı -->
-<div class="container hidden" id="welcomeDiv">
-  <h2>Hoş Geldin!</h2>
-  <p>Bu site senin için hazırlanmış bir haber ve eğlence platformudur. 
-     Haberlere göz atabilir, yorum yapabilir ve minik gruplarda derslerle ilgili tartışabilirsin.</p>
-  <label>
-    <input type="checkbox" id="acceptRules"> Kuralları okudum ve kabul ediyorum
-  </label>
-  <button id="btnContinue" disabled>Devam Et</button>
-  <p id="welcome"></p>
+<div class="container hidden" id="infoCard">
+  <h2>Bilgilendirme</h2>
+  <p>Bu site kullanıcılar için eğlence ve haber içerikleri sunmaktadır. Lütfen kurallara uygun davranın.
+    KURALLAR:
+    1-Eğlenin
+  </p>
+  <button id="btnContinue">Devam Et</button>
 </div>
 
-<!-- Haber Akışı -->
 <div class="container hidden" id="newsCard">
-  <h2>Haber Akışı</h2>
+  <h2 id="welcome">Haber Akışı</h2>
   <div id="newsList"></div>
 </div>
 

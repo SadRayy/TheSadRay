@@ -1,4 +1,3 @@
-/* Genel body ayarları */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #1f4037, #99f2c8);
@@ -11,7 +10,6 @@ body {
     min-height: 100vh;
 }
 
-/* Kutu (login/register/welcome) stilizasyonu */
 .container {
     background-color: rgba(255, 255, 255, 0.95);
     padding: 40px;
@@ -21,14 +19,12 @@ body {
     text-align: center;
 }
 
-/* Başlıklar */
 h1, h2 {
     color: #1f4037;
     margin-bottom: 20px;
 }
 
-/* Input alanları */
-input[type="text"], input[type="password"], input[type="email"] {
+input[type="text"], input[type="password"] {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
@@ -38,7 +34,6 @@ input[type="text"], input[type="password"], input[type="email"] {
     font-size: 15px;
 }
 
-/* Butonlar */
 button {
     width: 100%;
     padding: 12px;
@@ -57,17 +52,6 @@ button:hover {
     background-color: #4caf50;
 }
 
-button:disabled {
-    background-color: #888;
-    cursor: not-allowed;
-}
-
-/* Mesaj kutuları */
-.msg { font-size: 14px; margin-top: 5px; }
-.error { color: red; }
-.ok { color: green; }
-
-/* Haber paneli */
 .news {
     margin-top: 20px;
     padding: 20px;
@@ -78,5 +62,10 @@ button:disabled {
     font-weight: 500;
 }
 
-/* Gizleme sınıfı */
 .hidden { display: none; }
+
+.msg { font-size: 14px; }
+.msg.error { color: red; }
+.msg.ok { color: green; }
+
+.link { color: #1f4037; cursor: pointer; text-decoration: underline; }
