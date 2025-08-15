@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, collection, addDoc, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, collection, addDoc, onSnapshot, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
@@ -38,16 +38,17 @@ const forumInput = document.getElementById("forumInput");
 const sendMsg = document.getElementById("sendMsg");
 const forumMessages = document.getElementById("forumMessages");
 
-const nicknameKey = "sr_nickname";
-
 const navHome = document.getElementById("navHome");
 const navNews = document.getElementById("navNews");
 const navForum = document.getElementById("navForum");
 const navAbout = document.getElementById("navAbout");
 
 const homeSection = document.getElementById("homeSection");
+const newsSection = document.getElementById("newsSection");
 const forumSection = document.getElementById("forumSection");
 const aboutSection = document.getElementById("aboutSection");
+
+const clean = s => (s||"").trim();
 
 // Geçişler
 goLogin.addEventListener("click", ()=>{
@@ -61,8 +62,6 @@ goRegister.addEventListener("click", ()=>{
   logMsg.textContent="";
 });
 
-const clean = s => (s||"").trim();
-
 // Kayıt
 btnRegister.addEventListener("click", async ()=>{
   const nick = clean(regNick.value);
@@ -74,7 +73,7 @@ btnRegister.addEventListener("click", async ()=>{
     const ref = doc(db,"users",nick);
     if((await getDoc(ref)).exists()){ regMsg.textContent="Bu nickname kullanılıyor"; regMsg.classList.add("error"); return; }
     await setDoc(ref,{password:pass,createdAt:Date.now()});
-    openNews(nick);
+    openMain(nick);
   }catch(e){ regMsg.textContent="Hata: "+(e?.message||e); regMsg.classList.add("error"); }
 });
 
@@ -89,12 +88,12 @@ btnLogin.addEventListener("click", async ()=>{
     const snap = await getDoc(ref);
     if(!snap.exists()){ logMsg.textContent="Kullanıcı bulunamadı"; logMsg.classList.add("error"); return; }
     if(snap.data().password!==pass){ logMsg.textContent="Şifre yanlış"; logMsg.classList.add("error"); return; }
-    openNews(nick);
+    openMain(nick);
   }catch(e){ logMsg.textContent="Hata: "+(e?.message||e); logMsg.classList.add("error"); }
 });
 
 // Ana ekran
-async function openNews(nick){
+async function openMain(nick){
   registerCard.classList.add("hidden");
   loginCard.classList.add("hidden");
   mainScreen.classList.remove("hidden");
@@ -111,7 +110,7 @@ async function loadNews(){
     const item = d.data();
     const el = document.createElement("div");
     el.className="news";
-    el.innerHTML=`<h3>${item.title||"Başlık"}</h3><p>${item.content||""}</p>`;
+    el.innerHTML=`<h4>${item.title||"Başlık"}</h4><p>${item.content||""}</p>`;
     newsList.appendChild(el);
   });
 }
@@ -142,6 +141,6 @@ sendMsg.addEventListener("click", async ()=>{
 
 // Navbar tıklama
 navHome.addEventListener("click",()=>{homeSection.scrollIntoView({behavior:"smooth"});});
-navNews.addEventListener("click",()=>{homeSection.scrollIntoView({behavior:"smooth"});});
+navNews.addEventListener("click",()=>{newsSection.scrollIntoView({behavior:"smooth"});});
 navForum.addEventListener("click",()=>{forumSection.scrollIntoView({behavior:"smooth"});});
 navAbout.addEventListener("click",()=>{aboutSection.scrollIntoView({behavior:"smooth"});});
