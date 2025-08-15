@@ -50,7 +50,7 @@ const aboutSection = document.getElementById("aboutSection");
 
 const clean = s => (s||"").trim();
 
-// Geçişler
+// Form geçişleri
 goLogin.addEventListener("click", ()=>{
   registerCard.classList.add("hidden");
   loginCard.classList.remove("hidden");
@@ -98,9 +98,26 @@ async function openMain(nick){
   loginCard.classList.add("hidden");
   mainScreen.classList.remove("hidden");
   welcome.textContent=`Hoş geldin, ${nick}`;
+
+  // Başlangıçta sadece ana ekranı göster
+  showSection(homeSection);
+
   loadNews();
   loadForum();
 }
+
+// Sadece seçilen bölümü göster, diğerlerini gizle
+function showSection(section){
+  const sections = [homeSection, newsSection, forumSection, aboutSection];
+  sections.forEach(s=>{ s.classList.add("hidden"); });
+  section.classList.remove("hidden");
+}
+
+// Navbar tıklama
+navHome.addEventListener("click", ()=> showSection(homeSection));
+navNews.addEventListener("click", ()=> showSection(newsSection));
+navForum.addEventListener("click", ()=> showSection(forumSection));
+navAbout.addEventListener("click", ()=> showSection(aboutSection));
 
 // Haberleri çek
 async function loadNews(){
@@ -138,9 +155,3 @@ sendMsg.addEventListener("click", async ()=>{
   await addDoc(collection(db,"forum"),{author,text,createdAt:Date.now()});
   forumInput.value="";
 });
-
-// Navbar tıklama
-navHome.addEventListener("click",()=>{homeSection.scrollIntoView({behavior:"smooth"});});
-navNews.addEventListener("click",()=>{newsSection.scrollIntoView({behavior:"smooth"});});
-navForum.addEventListener("click",()=>{forumSection.scrollIntoView({behavior:"smooth"});});
-navAbout.addEventListener("click",()=>{aboutSection.scrollIntoView({behavior:"smooth"});});
