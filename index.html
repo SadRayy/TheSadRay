@@ -3,55 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Okul Blogu</title>
+    <title>Okul Bloğu</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
 <body>
+    <div id="auth-container">
+        <h2>Giriş / Kayıt</h2>
+        <input type="text" id="nickname" placeholder="Nickname">
+        <input type="password" id="password" placeholder="Şifre">
+        <button id="login-btn">Giriş Yap</button>
+        <button id="register-btn">Kayıt Ol</button>
+        <p id="auth-msg"></p>
+    </div>
 
-    <!-- Navbar -->
     <nav id="navbar">
-        <a href="#" class="navItem" onclick="showSection('anasayfa')">Anasayfa</a>
-        <a href="#" class="navItem" onclick="showSection('duyurular')">Duyurular</a>
-        <a href="#" class="navItem" onclick="showSection('forum')">Forum</a>
-        <a href="#" class="navItem" onclick="showSection('hakkinda')">Hakkında</a>
-        <button id="logout" onclick="logout()">Çıkış</button>
+        <span class="navItem" data-section="anasayfa">Anasayfa</span>
+        <span class="navItem" data-section="duyurular">Duyurular</span>
+        <span class="navItem" data-section="forum">Forum</span>
+        <span class="navItem" data-section="haberler">Haberler</span>
+        <span class="navItem" data-section="hakkinda">Hakkında</span>
+        <button id="logout">Çıkış Yap</button>
     </nav>
 
-    <!-- Giriş/Kayıt -->
-    <div id="auth-container">
-        <h1>Okul Bloguna Giriş</h1>
-        <input type="text" id="nickname" placeholder="Takma Adınız">
-        <input type="password" id="password" placeholder="Şifre">
-        <div class="auth-buttons">
-            <button onclick="login()">Giriş Yap</button>
-            <button onclick="register()">Kayıt Ol</button>
-        </div>
+    <div id="anasayfa" class="section">Anasayfa İçerik</div>
+    <div id="duyurular" class="section">Duyurular İçerik</div>
+    <div id="forum" class="section">
+        <div id="forum-messages"></div>
+        <input type="text" id="forum-input" placeholder="Mesaj yaz...">
+        <button id="forum-send">Gönder</button>
     </div>
-
-    <!-- İçerik Bölümleri -->
-    <div id="content">
-        <div id="anasayfa" class="section">
-            <h2>Okul Haberleri</h2>
-            <p>Burada günlük ve okul içi haberler görüntülenecek.</p>
-        </div>
-
-        <div id="duyurular" class="section">
-            <h2>Duyurular</h2>
-            <p>Okul yönetimi tarafından yapılan duyurular burada.</p>
-        </div>
-
-        <div id="forum" class="section">
-            <h2>Forum</h2>
-            <div id="forum-messages"></div>
-            <input type="text" id="forum-input" placeholder="Mesajınızı yazın...">
-            <button id="forum-send" onclick="sendMessage()">Gönder</button>
-        </div>
-
-        <div id="hakkinda" class="section">
-            <h2>Hakkında</h2>
-            <p>Bu blog okul öğrencileri için tasarlanmıştır. Dersler, duyurular ve forumlar burada yer alır.</p>
-        </div>
-    </div>
+    <div id="haberler" class="section">Haberler İçerik</div>
+    <div id="hakkinda" class="section">Hakkında İçerik</div>
 
     <script src="app.js"></script>
 </body>
