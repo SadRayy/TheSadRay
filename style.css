@@ -1,135 +1,153 @@
 /* Genel Ayarlar */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
-    background-color: #f3f6f8;
+    font-family: 'Arial', sans-serif;
+    background: #f0f4f8;
     color: #333;
 }
 
-/* Navbar Genel */
-#navbar {
-    display: none; /* Giriş/Kayıtta gizli */
-    background-color: #0d6efd;
-    padding: 10px 20px;
-    justify-content: flex-start; /* Yazıları sola hizala */
-    gap: 30px; /* Kelimeler arası boşluk */
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    overflow-x: auto; /* Yatay scroll */
-    white-space: nowrap; /* Kelimeler satır değiştirmesin */
-}
-
-.navItem {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    transition: color 0.3s;
-    flex-shrink: 0; /* Yazı boyutu küçülmesin */
-}
-
-.navItem:hover {
-    color: #ffd700;
-    cursor: default;
-}
-
-/* Mobil Uyumluluk */
-@media (max-width: 768px) {
-    #navbar {
-        flex-direction: row; /* Yatay kalır */
-        gap: 20px;
-    }
-
-    .navItem {
-        font-size: 14px; /* Mobilde yazıları küçült */
-    }
-}
-
-
-/* Auth Container */
+/* Giriş/Kayıt */
 #auth-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
-    color: #fff;
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
 #auth-container input {
-    padding: 12px 15px;
+    width: 90%;
     margin: 10px 0;
+    padding: 10px;
     border-radius: 8px;
-    border: none;
-    width: 250px;
+    border: 1px solid #ccc;
+    font-size: 16px;
 }
 
 #auth-container button {
-    padding: 12px 15px;
-    margin-top: 10px;
+    width: 45%;
+    margin: 10px 5px;
+    padding: 10px;
     border-radius: 8px;
     border: none;
-    width: 270px;
-    background-color: #ffd700;
+    background: #4a90e2;
+    color: white;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s;
+    transition: 0.3s;
 }
 
 #auth-container button:hover {
-    background-color: #ffc107;
+    background: #357ABD;
 }
 
-/* Section */
+#auth-msg {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Navbar */
+#navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #1f2937;
+    padding: 10px 0;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.navItem {
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.navItem:hover {
+    color: #4a90e2;
+}
+
+#logout {
+    padding: 6px 15px;
+    border-radius: 8px;
+    border: none;
+    background: #e94e77;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#logout:hover {
+    background: #c43f65;
+}
+
+/* Bölümler */
 .section {
     display: none;
-    padding: 30px;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 /* Forum */
 #forum-messages {
-    border: 1px solid #ddd;
-    padding: 10px;
     max-height: 300px;
     overflow-y: auto;
     margin-bottom: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
     border-radius: 8px;
-    background-color: #fff;
+    background: #f9f9f9;
 }
 
 #forum-input {
-    width: calc(100% - 100px);
+    width: 70%;
     padding: 10px;
-    border-radius: 6px;
+    border-radius: 8px;
     border: 1px solid #ccc;
 }
 
 #forum-send {
-    padding: 10px 20px;
-    border-radius: 6px;
+    padding: 10px 15px;
+    border-radius: 8px;
     border: none;
-    background-color: #0d6efd;
-    color: #fff;
+    background: #4a90e2;
+    color: white;
+    font-weight: bold;
     cursor: pointer;
+    margin-left: 5px;
+    transition: 0.3s;
 }
 
 #forum-send:hover {
-    background-color: #0b5ed7;
+    background: #357ABD;
 }
 
 /* Mobil Uyumluluk */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     #navbar {
-        flex-direction: column;
-        gap: 20px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
     }
 
-    #auth-container input, #auth-container button {
-        width: 80%;
+    #auth-container {
+        margin: 50px 20px;
+    }
+
+    .section {
+        margin: 20px 10px;
     }
 
     #forum-input {
-        width: 70%;
+        width: 60%;
     }
 }

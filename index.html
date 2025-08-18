@@ -9,6 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
 <body>
+    <!-- Giriş / Kayıt -->
     <div id="auth-container">
         <h2>Giriş / Kayıt</h2>
         <input type="text" id="nickname" placeholder="Nickname">
@@ -18,24 +19,34 @@
         <p id="auth-msg"></p>
     </div>
 
+    <!-- Navbar -->
     <nav id="navbar">
-        <span class="navItem" data-section="anasayfa">Anasayfa</span>
-        <span class="navItem" data-section="duyurular">Duyurular</span>
-        <span class="navItem" data-section="forum">Forum</span>
-        <span class="navItem" data-section="haberler">Haberler</span>
-        <span class="navItem" data-section="hakkinda">Hakkında</span>
-        <button id="logout">Çıkış Yap</button>
+        <div class="navItem" data-section="anasayfa">Anasayfa</div>
+        <div class="navItem" data-section="duyurular">Duyurular</div>
+        <div class="navItem" data-section="forum">Forum</div>
+        <div class="navItem" data-section="hakkinda">Hakkında</div>
+        <button id="logout">Çıkış</button>
     </nav>
 
-    <div id="anasayfa" class="section">Anasayfa İçerik</div>
-    <div id="duyurular" class="section">Duyurular İçerik</div>
+    <!-- Bölümler -->
+    <div id="anasayfa" class="section">
+        <h2>Anasayfa</h2>
+        <p>Hoş geldiniz! Güncel okul haberlerini buradan takip edebilirsiniz.</p>
+    </div>
+    <div id="duyurular" class="section">
+        <h2>Duyurular</h2>
+        <p>Okul duyuruları burada gösterilecek.</p>
+    </div>
     <div id="forum" class="section">
+        <h2>Forum</h2>
         <div id="forum-messages"></div>
         <input type="text" id="forum-input" placeholder="Mesaj yaz...">
         <button id="forum-send">Gönder</button>
     </div>
-    <div id="haberler" class="section">Haberler İçerik</div>
-    <div id="hakkinda" class="section">Hakkında İçerik</div>
+    <div id="hakkinda" class="section">
+        <h2>Hakkında</h2>
+        <p>Okul bloğumuz hakkında bilgi burada yer alır.</p>
+    </div>
 
     <script src="app.js"></script>
 </body>

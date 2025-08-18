@@ -12,7 +12,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Elements
+// Elementler
 const authContainer = document.getElementById('auth-container');
 const nicknameInput = document.getElementById('nickname');
 const passwordInput = document.getElementById('password');
@@ -31,7 +31,7 @@ const forumSend = document.getElementById('forum-send');
 
 let currentUser = null;
 
-// Register
+// Kayıt
 registerBtn.addEventListener('click', () => {
     const nickname = nicknameInput.value.trim();
     const password = passwordInput.value.trim();
@@ -48,7 +48,7 @@ registerBtn.addEventListener('click', () => {
     });
 });
 
-// Login
+// Giriş
 loginBtn.addEventListener('click', () => {
     const nickname = nicknameInput.value.trim();
     const password = passwordInput.value.trim();
@@ -66,7 +66,7 @@ loginBtn.addEventListener('click', () => {
     });
 });
 
-// Navbar click
+// Navbar tıklama
 navItems.forEach(item=>{
     item.addEventListener('click',()=>{
         const section = item.getAttribute('data-section');
@@ -74,7 +74,7 @@ navItems.forEach(item=>{
     });
 });
 
-// Logout
+// Çıkış
 logoutBtn.addEventListener('click',()=>{
     currentUser=null;
     authContainer.style.display="block";
@@ -82,13 +82,13 @@ logoutBtn.addEventListener('click',()=>{
     sections.forEach(s=>s.style.display="none");
 });
 
-// Show section
+// Bölüm göster
 function showSection(id){
     sections.forEach(s=>s.style.display="none");
     document.getElementById(id).style.display="block";
 }
 
-// Forum messages
+// Forum mesaj gönderme
 forumSend.addEventListener('click',()=>{
     const msg = forumInput.value.trim();
     if(!msg || !currentUser) return;
@@ -100,7 +100,7 @@ forumSend.addEventListener('click',()=>{
     }).then(()=> forumInput.value='');
 });
 
-// Load forum messages
+// Forum mesajları yükle
 db.collection('forum').orderBy('createdAt','asc').onSnapshot(snapshot=>{
     forumMessages.innerHTML='';
     snapshot.forEach(doc=>{
