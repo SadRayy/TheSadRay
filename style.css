@@ -8,27 +8,31 @@ body {
     min-height: 100vh;
 }
 
-/* Navbar */
+/* === NAVBAR === */
 .navbar {
     display: flex;
-    justify-content: center;
-    gap: 30px;
-    background-color: rgba(0,0,0,0.2);
-    padding: 15px 0;
-    position: sticky;
+    justify-content: flex-start;
+    background: rgba(0,0,0,0.85);
+    padding: 15px 30px;
+    gap: 20px;
+    position: fixed;
+    width: 100%;
     top: 0;
     z-index: 100;
 }
-.navItem {
-    cursor: pointer;
+
+.navbar .navItem {
     color: #fff;
-    font-weight: bold;
-}
-.navItem:hover {
-    text-decoration: underline;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-/* === AUTH (Kayıt & Giriş Kartları) === */
+.navbar .navItem:hover {
+    color: #99f2c8;
+}
+
+/* === AUTH === */
 .container {
     background-color: rgba(255, 255, 255, 0.95);
     padding: 35px;
@@ -37,7 +41,7 @@ body {
     width: 90%;
     max-width: 350px;
     text-align: center;
-    margin: 80px auto;
+    margin: 150px auto 0 auto;
     animation: fadeIn 0.6s ease;
 }
 
@@ -55,34 +59,58 @@ body {
     border-radius: 8px;
     background-color: #f9f9f9;
     font-size: 15px;
-    transition: 0.3s;
 }
 
 .container input:focus {
     border-color: #1f4037;
     outline: none;
-    box-shadow: 0 0 5px #1f4037;
 }
 
 .container button {
     width: 100%;
     padding: 12px;
-    background-color: #1f4037;
     border: none;
-    border-radius: 8px;
+    background-color: #1f4037;
     color: #fff;
-    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
     cursor: pointer;
-    margin-top: 10px;
-}
-.container button:hover {
-    background-color: #16603a;
+    transition: 0.3s;
 }
 
-.hidden { display: none; }
+.container button:hover {
+    background-color: #3b8d76;
+}
 
 .msg {
     font-size: 14px;
     margin-top: 10px;
 }
-.msg.error { color: red; }
+
+.error { color: red; }
+
+.switch { font-size: 13px; margin-top: 15px; }
+.switch span { color: #1f4037; cursor: pointer; text-decoration: underline; }
+
+.hidden { display: none; }
+
+/* === SECTIONS === */
+.section {
+    padding: 120px 20px 40px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+#newsList .news {
+    background-color: #f0f8f5;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* FadeIn Animasyonu */
+@keyframes fadeIn {
+    from {opacity:0; transform: translateY(10px);}
+    to {opacity:1; transform: translateY(0);}
+}
