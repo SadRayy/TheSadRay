@@ -3,56 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MySite</title>
+    <title>Profesyonel Site</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body>
-    <!-- Giriş/Kayıt Ekranı -->
-    <div class="auth-container" id="auth-container">
-        <h2>Giriş Yap / Kayıt Ol</h2>
+    <div id="auth-container" class="auth-container">
+        <h2>Giriş / Kayıt</h2>
         <input type="text" id="nickname" placeholder="Nickname">
         <input type="password" id="password" placeholder="Şifre">
-        <div class="auth-buttons">
-            <button id="login-btn">Giriş Yap</button>
-            <button id="register-btn">Kayıt Ol</button>
+        <div>
+            <button id="login-btn">Giriş</button>
+            <button id="register-btn">Kayıt</button>
         </div>
-        <p id="auth-msg"></p>
+        <div id="auth-msg"></div>
     </div>
 
-    <!-- Navbar -->
-    <div class="navbar" id="navbar" style="display:none;">
-        <span class="navItem" data-section="anasayfa">Anasayfa</span>
-        <span class="navItem" data-section="duyurular">Duyurular</span>
-        <span class="navItem" data-section="forumlar">Forumlar</span>
-        <span class="navItem" data-section="hakkinda">Hakkında</span>
-        <span class="navItem" id="logout">Çıkış Yap</span>
+    <div id="navbar" class="navbar" style="display:none;">
+        <div class="navItem" data-section="anasayfa">Anasayfa</div>
+        <div class="navItem" data-section="haberler">Haberler</div>
+        <div class="navItem" data-section="forum">Forum</div>
+        <div class="navItem" id="logout">Çıkış</div>
     </div>
 
-    <!-- Bölümler -->
-    <div class="section" id="anasayfa">
-        <h2>Anasayfa - Haberler</h2>
+    <div id="anasayfa" class="section">
+        <h2>Hoşgeldiniz!</h2>
+        <p>Burası ana sayfa.</p>
+    </div>
+
+    <div id="haberler" class="section">
+        <h2>Haberler</h2>
         <div class="news">Haber 1</div>
         <div class="news">Haber 2</div>
     </div>
 
-    <div class="section" id="duyurular">
-        <h2>Duyurular</h2>
-        <div class="news">Duyuru 1</div>
-        <div class="news">Duyuru 2</div>
-    </div>
-
-    <div class="section" id="forumlar">
-        <h2>Forumlar</h2>
+    <div id="forum" class="section">
+        <h2>Forum</h2>
         <div id="forum-messages"></div>
-        <input type="text" id="forum-input" placeholder="Mesaj yazın...">
+        <input type="text" id="forum-input" placeholder="Mesajınızı yazın...">
         <button id="forum-send">Gönder</button>
-    </div>
-
-    <div class="section" id="hakkinda">
-        <h2>Hakkında</h2>
-        <p>Bu site ders çalışmak ve haberleri takip etmek için hazırlanmıştır.</p>
     </div>
 
     <script src="app.js"></script>

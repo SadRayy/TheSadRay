@@ -35,10 +35,10 @@ let currentUser = null;
 registerBtn.addEventListener('click', () => {
     const nickname = nicknameInput.value.trim();
     const password = passwordInput.value.trim();
-    if(!nickname || !password){ authMsg.style.color="red"; authMsg.textContent="Nickname ve şifre giriniz"; return; }
+    if(!nickname || !password){ authMsg.textContent="Nickname ve şifre giriniz"; return; }
 
     db.collection('users').doc(nickname).get().then(doc=>{
-        if(doc.exists){ authMsg.style.color="red"; authMsg.textContent="Bu nickname kullanılıyor"; }
+        if(doc.exists){ authMsg.textContent="Bu nickname kullanılıyor"; }
         else{
             db.collection('users').doc(nickname).set({password: password}).then(()=>{
                 authMsg.style.color="green";
@@ -52,7 +52,7 @@ registerBtn.addEventListener('click', () => {
 loginBtn.addEventListener('click', () => {
     const nickname = nicknameInput.value.trim();
     const password = passwordInput.value.trim();
-    if(!nickname || !password){ authMsg.style.color="red"; authMsg.textContent="Nickname ve şifre giriniz"; return; }
+    if(!nickname || !password){ authMsg.textContent="Nickname ve şifre giriniz"; return; }
 
     db.collection('users').doc(nickname).get().then(doc=>{
         if(doc.exists && doc.data().password === password){
@@ -61,7 +61,6 @@ loginBtn.addEventListener('click', () => {
             navbar.style.display="flex";
             showSection('anasayfa');
         } else {
-            authMsg.style.color="red";
             authMsg.textContent="Nickname veya şifre hatalı";
         }
     });
@@ -83,7 +82,7 @@ logoutBtn.addEventListener('click',()=>{
     sections.forEach(s=>s.style.display="none");
 });
 
-// Show section full screen
+// Show section
 function showSection(id){
     sections.forEach(s=>s.style.display="none");
     document.getElementById(id).style.display="block";
