@@ -1,18 +1,50 @@
-body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9;}
-#navbar { display:flex; background:#222; color:white; padding:10px; position:fixed; top:0; width:100%; z-index:1000;}
-.navItem { margin-right:15px; cursor:pointer; }
-.navItem:hover { text-decoration:underline; }
-.section { padding:80px 20px 20px 20px; }
-.hidden { display:none; }
-
-#loginCard, #registerCard, #newsCard, #forumCard {
-  max-width:500px; margin:100px auto 20px; padding:20px;
-  background:white; box-shadow:0 0 10px rgba(0,0,0,0.2); border-radius:10px;
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1f4037, #99f2c8);
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
-input, textarea, button { width:100%; margin:5px 0; padding:10px; border-radius:5px; border:1px solid #ccc; }
-button { background:#222; color:white; cursor:pointer; }
-button:hover { background:#555; }
-.msg { margin:5px 0; color:red; font-weight:bold; }
-#forumInput { height:60px; resize:none; }
-.news { padding:10px; margin:5px 0; border-bottom:1px solid #eee; }
-#welcomeContainer { padding:50px 20px 10px 20px; font-weight:bold;}
+
+/* Navbar en üstte */
+.navbar {
+    display: flex;
+    gap: 20px;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 1000;
+    font-weight: bold;
+}
+.navItem { cursor: pointer; color: black; transition: 0.2s; }
+.navItem:hover { color: #1f4037; }
+
+/* Container */
+.container {
+    background-color: rgba(255,255,255,0.95);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 350px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+/* Sections */
+.section { padding:20px; background:white; display:none; }
+.section.active { display:block; }
+
+/* Haber & Forum */
+.news { margin:10px 0; padding:10px; border-radius:8px; background:#eaf4f4; }
+.msg.error{ color:red; }
+.msg.ok{ color:green; }
+
+/* Input & Button */
+input[type=text], input[type=password], input[type=email]{
+  width:100%; padding:10px; margin:5px 0; border-radius:8px; border:1px solid #ccc;
+}
+button{
+  width:100%; padding:10px; margin:10px 0; border:none; border-radius:8px; background:#1f4037; color:white; cursor:pointer;
+}
+button:hover{ background:#4caf50; }

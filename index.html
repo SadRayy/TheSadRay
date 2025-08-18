@@ -16,34 +16,36 @@
   <span class="navItem" data-section="forumCard">Forum</span>
 </div>
 
-<!-- Welcome -->
-<div id="welcomeContainer">
-  Hoşgeldin: <span id="welcome"></span>
-</div>
-
 <!-- Giriş/Kayıt -->
-<div id="loginCard" class="section">
-  <h2>Giriş Yap</h2>
-  <input type="text" id="logNick" placeholder="Nickname">
-  <input type="password" id="logPass" placeholder="Şifre">
-  <button id="btnLogin">Giriş Yap</button>
-  <div id="logMsg" class="msg"></div>
-  <p><a href="#" id="goRegister">Kayıt Ol</a></p>
+<div id="loginRegisterWrapper">
+  <div id="loginCard" class="section">
+    <h2>Giriş Yap</h2>
+    <input type="text" id="logNick" placeholder="Nickname">
+    <input type="password" id="logPass" placeholder="Şifre">
+    <button id="btnLogin">Giriş Yap</button>
+    <div id="logMsg" class="msg"></div>
+    <p><a href="#" id="goRegister">Kayıt Ol</a></p>
+  </div>
+
+  <div id="registerCard" class="section hidden">
+    <h2>Kayıt Ol</h2>
+    <input type="text" id="regNick" placeholder="Nickname">
+    <input type="password" id="regPass" placeholder="Şifre">
+    <button id="btnRegister">Kayıt Ol</button>
+    <div id="regMsg" class="msg"></div>
+    <p><a href="#" id="goLogin">Giriş Yap</a></p>
+  </div>
 </div>
 
-<div id="registerCard" class="section hidden">
-  <h2>Kayıt Ol</h2>
-  <input type="text" id="regNick" placeholder="Nickname">
-  <input type="password" id="regPass" placeholder="Şifre">
-  <button id="btnRegister">Kayıt Ol</button>
-  <div id="regMsg" class="msg"></div>
-  <p><a href="#" id="goLogin">Giriş Yap</a></p>
-</div>
-
-<!-- Haberler -->
-<div id="newsCard" class="section hidden">
-  <h2>Haberler</h2>
-  <div id="newsList"></div>
+<!-- Welcome / Haberler -->
+<div id="home" class="section hidden">
+  <div id="welcomeContainer">
+    Hoşgeldin: <span id="welcome"></span>
+  </div>
+  <div id="newsCard">
+    <h2>Haberler</h2>
+    <div id="newsList"></div>
+  </div>
 </div>
 
 <!-- Forum -->
