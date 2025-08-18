@@ -3,66 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sadrayy Site</title>
+    <title>Profesyonel Site</title>
     <link rel="stylesheet" href="style.css">
     <script type="module" src="app.js" defer></script>
 </head>
 <body>
 
-<!-- === GİRİŞ & KAYIT EKRANI === -->
-<div id="authContainer" class="container">
-    <div id="registerCard">
-        <h2>Kayıt Ol</h2>
-        <input type="text" id="regNick" placeholder="Nickname">
-        <input type="password" id="regPass" placeholder="Şifre">
-        <button id="btnRegister">Kayıt Ol</button>
-        <p id="regMsg" class="msg"></p>
-        <p><a href="#" id="goLogin">Zaten hesabım var</a></p>
-    </div>
-    <div id="loginCard" class="hidden">
-        <h2>Giriş Yap</h2>
-        <input type="text" id="logNick" placeholder="Nickname">
-        <input type="password" id="logPass" placeholder="Şifre">
-        <button id="btnLogin">Giriş Yap</button>
-        <p id="logMsg" class="msg"></p>
-        <p><a href="#" id="goRegister">Hesap oluştur</a></p>
-    </div>
-</div>
-
-<!-- === NAVBAR === -->
-<div id="navbar" class="hidden">
-    <ul>
-        <li class="navItem" data-section="home">Anasayfa</li>
-        <li class="navItem" data-section="duyurular">Duyurular</li>
-        <li class="navItem" data-section="forum">Forum</li>
-        <li class="navItem" data-section="hakkinda">Hakkında</li>
-    </ul>
-</div>
-
-<!-- === İÇERİKLER === -->
-<div id="sectionsWrapper">
-    <div id="home" class="section hidden">
-        <h2>Haberler</h2>
-        <div id="newsList"></div>
+    <!-- Giriş/Kayıt Kartları -->
+    <div class="auth-container" id="authContainer">
+        <h2>Giriş Yap / Kayıt Ol</h2>
+        <input type="text" id="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Şifre">
+        <button id="loginBtn">Giriş Yap</button>
+        <button id="registerBtn">Kayıt Ol</button>
+        <div class="msg" id="msg"></div>
     </div>
 
-    <div id="duyurular" class="section hidden">
-        <h2>Duyurular</h2>
-        <div id="duyuruList"></div>
+    <!-- Navbar -->
+    <div class="navbar hidden" id="navbar">
+        <div class="navItem" data-section="anasayfa">Anasayfa</div>
+        <div class="navItem" data-section="duyurular">Duyurular</div>
+        <div class="navItem" data-section="forum">Forum</div>
+        <div class="navItem" data-section="hakkinda">Hakkında</div>
     </div>
 
-    <div id="forum" class="section hidden">
-        <h2>Forum</h2>
-        <div id="forumMessages"></div>
-        <input type="text" id="forumInput" placeholder="Mesaj yaz..." />
-        <button id="sendForum">Gönder</button>
+    <!-- Sayfa İçerikleri -->
+    <div class="section-container hidden" id="sectionContainer">
+        <div class="section" id="anasayfa">Haberler buraya gelecek...</div>
+        <div class="section hidden" id="duyurular">Duyurular buraya gelecek...</div>
+        <div class="section hidden" id="forum">Forum mesajları buraya gelecek...</div>
+        <div class="section hidden" id="hakkinda">Hakkında bilgisi buraya gelecek...</div>
     </div>
-
-    <div id="hakkinda" class="section hidden">
-        <h2>Hakkında</h2>
-        <p>Site hakkında bilgiler buraya gelecek.</p>
-    </div>
-</div>
 
 </body>
 </html>
