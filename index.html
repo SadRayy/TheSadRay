@@ -14,8 +14,10 @@
         <h2>Giriş Yap / Kayıt Ol</h2>
         <input type="text" id="nickname" placeholder="Nickname">
         <input type="password" id="password" placeholder="Şifre">
-        <button id="login-btn">Giriş Yap</button>
-        <button id="register-btn">Kayıt Ol</button>
+        <div class="auth-buttons">
+            <button id="login-btn">Giriş Yap</button>
+            <button id="register-btn">Kayıt Ol</button>
+        </div>
         <p id="auth-msg"></p>
     </div>
 
@@ -29,26 +31,26 @@
     </div>
 
     <!-- Bölümler -->
-    <div class="section" id="anasayfa" style="display:none;">
+    <div class="section" id="anasayfa">
         <h2>Anasayfa - Haberler</h2>
         <div class="news">Haber 1</div>
         <div class="news">Haber 2</div>
     </div>
 
-    <div class="section" id="duyurular" style="display:none;">
+    <div class="section" id="duyurular">
         <h2>Duyurular</h2>
         <div class="news">Duyuru 1</div>
         <div class="news">Duyuru 2</div>
     </div>
 
-    <div class="section" id="forumlar" style="display:none;">
+    <div class="section" id="forumlar">
         <h2>Forumlar</h2>
         <div id="forum-messages"></div>
         <input type="text" id="forum-input" placeholder="Mesaj yazın...">
         <button id="forum-send">Gönder</button>
     </div>
 
-    <div class="section" id="hakkinda" style="display:none;">
+    <div class="section" id="hakkinda">
         <h2>Hakkında</h2>
         <p>Bu site ders çalışmak ve haberleri takip etmek için hazırlanmıştır.</p>
     </div>
