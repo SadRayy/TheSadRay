@@ -1,50 +1,68 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sadrayy Site</title>
-  <link rel="stylesheet" href="style.css">
-  <script type="module" src="app.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sadrayy Site</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="app.js" defer></script>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <span class="navItem" data-section="home">Anasayfa</span>
-    <span class="navItem" data-section="duyurular">Duyurular</span>
-  </nav>
-
-  <!-- Giriş / Kayıt -->
-  <div id="authContainer" class="container">
+<!-- === GİRİŞ & KAYIT EKRANI === -->
+<div id="authContainer" class="container">
     <div id="registerCard">
-      <h2>Kayıt Ol</h2>
-      <input type="text" id="regNick" placeholder="Nickname">
-      <input type="password" id="regPass" placeholder="Şifre">
-      <button id="btnRegister">Kayıt Ol</button>
-      <p id="regMsg" class="msg"></p>
-      <p class="switch"><span id="goLogin">Zaten hesabım var</span></p>
+        <h2>Kayıt Ol</h2>
+        <input type="text" id="regNick" placeholder="Nickname">
+        <input type="password" id="regPass" placeholder="Şifre">
+        <button id="btnRegister">Kayıt Ol</button>
+        <p id="regMsg" class="msg"></p>
+        <p><a href="#" id="goLogin">Zaten hesabım var</a></p>
     </div>
     <div id="loginCard" class="hidden">
-      <h2>Giriş Yap</h2>
-      <input type="text" id="logNick" placeholder="Nickname">
-      <input type="password" id="logPass" placeholder="Şifre">
-      <button id="btnLogin">Giriş Yap</button>
-      <p id="logMsg" class="msg"></p>
-      <p class="switch"><span id="goRegister">Hesap oluştur</span></p>
+        <h2>Giriş Yap</h2>
+        <input type="text" id="logNick" placeholder="Nickname">
+        <input type="password" id="logPass" placeholder="Şifre">
+        <button id="btnLogin">Giriş Yap</button>
+        <p id="logMsg" class="msg"></p>
+        <p><a href="#" id="goRegister">Hesap oluştur</a></p>
     </div>
-  </div>
+</div>
 
-  <!-- İçerik Bölümleri -->
-  <section id="home" class="section hidden">
-    <h1>Hoşgeldiniz, <span id="welcome"></span></h1>
-    <p>Anasayfa içeriği buraya gelecek.</p>
-  </section>
+<!-- === NAVBAR === -->
+<div id="navbar" class="hidden">
+    <ul>
+        <li class="navItem" data-section="home">Anasayfa</li>
+        <li class="navItem" data-section="duyurular">Duyurular</li>
+        <li class="navItem" data-section="forum">Forum</li>
+        <li class="navItem" data-section="hakkinda">Hakkında</li>
+    </ul>
+</div>
 
-  <section id="duyurular" class="section hidden">
-    <h1>Duyurular</h1>
-    <div id="newsList"></div>
-  </section>
+<!-- === İÇERİKLER === -->
+<div id="sectionsWrapper">
+    <div id="home" class="section hidden">
+        <h2>Haberler</h2>
+        <div id="newsList"></div>
+    </div>
+
+    <div id="duyurular" class="section hidden">
+        <h2>Duyurular</h2>
+        <div id="duyuruList"></div>
+    </div>
+
+    <div id="forum" class="section hidden">
+        <h2>Forum</h2>
+        <div id="forumMessages"></div>
+        <input type="text" id="forumInput" placeholder="Mesaj yaz..." />
+        <button id="sendForum">Gönder</button>
+    </div>
+
+    <div id="hakkinda" class="section hidden">
+        <h2>Hakkında</h2>
+        <p>Site hakkında bilgiler buraya gelecek.</p>
+    </div>
+</div>
 
 </body>
 </html>

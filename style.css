@@ -1,116 +1,98 @@
-/* === GENEL === */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1f4037, #99f2c8);
-    color: #333;
     margin: 0;
     padding: 0;
     min-height: 100vh;
+    background: linear-gradient(135deg, #1f4037, #99f2c8);
+    color: #333;
 }
 
-/* === NAVBAR === */
-.navbar {
-    display: flex;
-    justify-content: flex-start;
-    background: rgba(0,0,0,0.85);
-    padding: 15px 30px;
-    gap: 20px;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 100;
-}
-
-.navbar .navItem {
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.navbar .navItem:hover {
-    color: #99f2c8;
-}
-
-/* === AUTH === */
+/* Giriş/Kayıt Kartları */
 .container {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255,255,255,0.95);
     padding: 35px;
     border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
     width: 90%;
-    max-width: 350px;
+    max-width: 400px;
     text-align: center;
-    margin: 150px auto 0 auto;
-    animation: fadeIn 0.6s ease;
-}
-
-.container h2 {
-    color: #1f4037;
-    margin-bottom: 20px;
-    font-size: 22px;
+    margin: 80px auto;
 }
 
 .container input {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
-    border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #f9f9f9;
+    border: 1px solid #ccc;
     font-size: 15px;
 }
 
-.container input:focus {
-    border-color: #1f4037;
-    outline: none;
-}
-
 .container button {
-    width: 100%;
-    padding: 12px;
+    padding: 12px 20px;
+    margin-top: 10px;
     border: none;
+    border-radius: 8px;
     background-color: #1f4037;
     color: #fff;
-    font-weight: 600;
-    border-radius: 8px;
     cursor: pointer;
-    transition: 0.3s;
 }
 
 .container button:hover {
-    background-color: #3b8d76;
+    background-color: #16603c;
 }
 
-.msg {
-    font-size: 14px;
+.hidden {
+    display: none;
+}
+
+/* Navbar */
+#navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(31,64,55,0.95);
+    color: #fff;
+    padding: 10px 0;
+    z-index: 1000;
+}
+
+#navbar ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+#navbar li {
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+#navbar li:hover {
+    text-decoration: underline;
+}
+
+/* İçerikler */
+.section {
+    padding: 100px 20px 20px 20px; /* navbar yüksekliği kadar üst boşluk */
+    min-height: 100vh;
+    background: rgba(255,255,255,0.95);
+}
+
+#newsList, #duyuruList, #forumMessages {
+    margin-top: 20px;
+}
+
+#forumInput {
+    width: 80%;
+    padding: 10px;
     margin-top: 10px;
 }
 
-.error { color: red; }
-
-.switch { font-size: 13px; margin-top: 15px; }
-.switch span { color: #1f4037; cursor: pointer; text-decoration: underline; }
-
-.hidden { display: none; }
-
-/* === SECTIONS === */
-.section {
-    padding: 120px 20px 40px 20px;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-#newsList .news {
-    background-color: #f0f8f5;
-    padding: 15px;
-    margin-bottom: 12px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* FadeIn Animasyonu */
-@keyframes fadeIn {
-    from {opacity:0; transform: translateY(10px);}
-    to {opacity:1; transform: translateY(0);}
+#sendForum {
+    padding: 10px 15px;
+    margin-left: 5px;
+    cursor: pointer;
 }
