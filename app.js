@@ -5,10 +5,10 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, si
 // Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
-  authDomain: "PROJE_ID.firebaseapp.com",
-  projectId: "PROJE_ID",
-  storageBucket: "PROJE_ID.appspot.com",
-  messagingSenderId: "XXXXXX",
+  authDomain: "sadrayy-site.firebaseapp.com",
+  projectId: "sadrayy-site",
+  storageBucket: "sadrayy-site.firebasestorage.app",
+  messagingSenderId: "1:302147777701:web:d701293a09ab61d85f894c",
   appId: "APP_ID"
 };
 
