@@ -1,50 +1,62 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profesyonel Site</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sadrayy Site</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
 <body>
-    <div id="auth-container" class="auth-container">
-        <h2>Giriş / Kayıt</h2>
-        <input type="text" id="nickname" placeholder="Nickname">
-        <input type="password" id="password" placeholder="Şifre">
-        <div>
-            <button id="login-btn">Giriş</button>
-            <button id="register-btn">Kayıt</button>
-        </div>
-        <div id="auth-msg"></div>
-    </div>
 
-    <div id="navbar" class="navbar" style="display:none;">
-        <div class="navItem" data-section="anasayfa">Anasayfa</div>
-        <div class="navItem" data-section="haberler">Haberler</div>
-        <div class="navItem" data-section="forum">Forum</div>
-        <div class="navItem" id="logout">Çıkış</div>
+  <!-- Auth Container -->
+  <div id="auth-container">
+    <h2 style="color:white;">Giriş / Kayıt</h2>
+    <input type="text" id="nickname" placeholder="Nickname">
+    <input type="password" id="password" placeholder="Şifre">
+    <div>
+      <button id="login-btn">Giriş Yap</button>
+      <button id="register-btn">Kayıt Ol</button>
     </div>
+    <div id="auth-msg"></div>
+  </div>
 
-    <div id="anasayfa" class="section">
-        <h2>Hoşgeldiniz!</h2>
-        <p>Burası ana sayfa.</p>
-    </div>
+  <!-- Navbar -->
+  <div id="navbar" class="hidden">
+    <div class="navItem" data-section="anasayfa">Anasayfa</div>
+    <div class="navItem" data-section="duyurular">Duyurular</div>
+    <div class="navItem" data-section="forum">Forum</div>
+    <div class="navItem" data-section="hakkinda">Hakkında</div>
+    <div class="navItem" id="logout" style="margin-left:auto; color:#ff4757;">Çıkış</div>
+  </div>
 
-    <div id="haberler" class="section">
-        <h2>Haberler</h2>
-        <div class="news">Haber 1</div>
-        <div class="news">Haber 2</div>
-    </div>
+  <!-- Sections -->
+  <div id="anasayfa" class="section">
+    <h1>Hoşgeldiniz!</h1>
+    <div class="news-card">Sitemize hoşgeldiniz! Güncel haberler burada gösterilecek.</div>
+    <div class="news-card">Yeni özellikler yakında eklenecek.</div>
+  </div>
 
-    <div id="forum" class="section">
-        <h2>Forum</h2>
-        <div id="forum-messages"></div>
-        <input type="text" id="forum-input" placeholder="Mesajınızı yazın...">
-        <button id="forum-send">Gönder</button>
-    </div>
+  <div id="duyurular" class="section">
+    <h2>Duyurular</h2>
+    <div class="announcement-card">Site güncellendi! Yeni tasarım yayında.</div>
+    <div class="announcement-card">Forum aktif hale getirildi.</div>
+  </div>
 
-    <script src="app.js"></script>
+  <div id="forum" class="section">
+    <h2>Forum</h2>
+    <div id="forum-messages"></div>
+    <input type="text" id="forum-input" placeholder="Mesaj yaz...">
+    <button id="forum-send">Gönder</button>
+  </div>
+
+  <div id="hakkinda" class="section">
+    <h2>Hakkında</h2>
+    <p>Bu site Sadrayy tarafından geliştirilmiştir. Modern, hızlı ve kullanıcı dostu bir platform sunmayı hedeflemektedir.</p>
+  </div>
+
+  <!-- App JS -->
+  <script src="app.js"></script>
 </body>
 </html>
