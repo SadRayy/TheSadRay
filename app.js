@@ -3,7 +3,7 @@ import { getFirestore, doc, getDoc, setDoc, collection, getDocs, addDoc, query, 
 
 /* Firebase */
 const firebaseConfig = {
-    apiKey: "YENI_API_KEY",
+    apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
     authDomain: "sadrayy-site.firebaseapp.com",
     projectId: "sadrayy-site",
     storageBucket: "sadrayy-site.appspot.com",
