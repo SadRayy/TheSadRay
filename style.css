@@ -6,16 +6,18 @@ body {
     color: #333;
 }
 
-/* Navbar */
+/* Navbar Genel */
 #navbar {
     display: none; /* Giriş/Kayıtta gizli */
     background-color: #0d6efd;
     padding: 10px 20px;
-    justify-content: center;
-    gap: 40px; /* Kelimeler arası boşluk */
+    justify-content: flex-start; /* Yazıları sola hizala */
+    gap: 30px; /* Kelimeler arası boşluk */
     position: sticky;
     top: 0;
     z-index: 1000;
+    overflow-x: auto; /* Yatay scroll */
+    white-space: nowrap; /* Kelimeler satır değiştirmesin */
 }
 
 .navItem {
@@ -23,12 +25,26 @@ body {
     text-decoration: none;
     font-weight: 600;
     transition: color 0.3s;
+    flex-shrink: 0; /* Yazı boyutu küçülmesin */
 }
 
 .navItem:hover {
     color: #ffd700;
-    cursor: default; /* Mouse ikonu değişmesin */
+    cursor: default;
 }
+
+/* Mobil Uyumluluk */
+@media (max-width: 768px) {
+    #navbar {
+        flex-direction: row; /* Yatay kalır */
+        gap: 20px;
+    }
+
+    .navItem {
+        font-size: 14px; /* Mobilde yazıları küçült */
+    }
+}
+
 
 /* Auth Container */
 #auth-container {
