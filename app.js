@@ -1,9 +1,12 @@
-// Kullanıcı Girişi ve Navbar Gösterme
+// Navbar başlangıçta gizli
+document.getElementById('navbar').style.display = 'none';
+
+// Giriş
 function login() {
     const nickname = document.getElementById('nickname').value;
     const password = document.getElementById('password').value;
 
-    if(nickname && password){
+    if (nickname && password) {
         document.getElementById('auth-container').style.display = 'none';
         document.getElementById('navbar').style.display = 'flex';
         showSection('anasayfa');
@@ -12,42 +15,43 @@ function login() {
     }
 }
 
+// Kayıt
 function register() {
     const nickname = document.getElementById('nickname').value;
     const password = document.getElementById('password').value;
 
-    if(nickname && password){
+    if (nickname && password) {
         alert("Kayıt başarılı! Giriş yapabilirsiniz.");
     } else {
         alert("Lütfen tüm alanları doldurun!");
     }
 }
 
-// Navbar üzerinden Section geçişi
+// Section geçişi
 function showSection(id) {
     const sections = document.querySelectorAll('.section');
     sections.forEach(sec => sec.style.display = 'none');
     document.getElementById(id).style.display = 'block';
 }
 
-// Logout
-function logout(){
+// Çıkış
+function logout() {
     document.getElementById('auth-container').style.display = 'flex';
     document.getElementById('navbar').style.display = 'none';
     const sections = document.querySelectorAll('.section');
     sections.forEach(sec => sec.style.display = 'none');
 }
 
-// Forum Mesaj Gönderme
+// Forum mesaj
 function sendMessage() {
     const input = document.getElementById('forum-input');
-    const msgContainer = document.getElementById('forum-messages');
+    const container = document.getElementById('forum-messages');
 
     if(input.value.trim() !== ''){
         const msg = document.createElement('p');
         msg.textContent = input.value;
-        msgContainer.appendChild(msg);
+        container.appendChild(msg);
         input.value = '';
-        msgContainer.scrollTop = msgContainer.scrollHeight;
+        container.scrollTop = container.scrollHeight;
     }
 }
