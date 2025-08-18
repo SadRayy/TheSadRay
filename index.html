@@ -10,50 +10,51 @@
 <body>
 
 <!-- Navbar -->
-<div id="navbar">
+<nav class="navbar">
   <span class="navItem" data-section="home">Anasayfa</span>
-  <span class="navItem" data-section="newsCard">Haberler</span>
-  <span class="navItem" data-section="forumCard">Forum</span>
+  <span class="navItem" data-section="news">Haberler</span>
+  <span class="navItem" data-section="forum">Forum</span>
+  <span class="navItem" data-section="forms">Formlar</span>
+</nav>
+
+<!-- Giriş Kartı -->
+<div class="container" id="loginCard">
+  <h2>Giriş Yap</h2>
+  <input type="text" id="logNick" placeholder="Nickname">
+  <input type="password" id="logPass" placeholder="Şifre">
+  <button id="btnLogin">Giriş Yap</button>
+  <p class="msg" id="logMsg"></p>
+  <p><a href="#" id="goRegister">Kayıt Ol</a></p>
 </div>
 
-<!-- Giriş/Kayıt -->
-<div id="loginRegisterWrapper">
-  <div id="loginCard" class="section">
-    <h2>Giriş Yap</h2>
-    <input type="text" id="logNick" placeholder="Nickname">
-    <input type="password" id="logPass" placeholder="Şifre">
-    <button id="btnLogin">Giriş Yap</button>
-    <div id="logMsg" class="msg"></div>
-    <p><a href="#" id="goRegister">Kayıt Ol</a></p>
-  </div>
-
-  <div id="registerCard" class="section hidden">
-    <h2>Kayıt Ol</h2>
-    <input type="text" id="regNick" placeholder="Nickname">
-    <input type="password" id="regPass" placeholder="Şifre">
-    <button id="btnRegister">Kayıt Ol</button>
-    <div id="regMsg" class="msg"></div>
-    <p><a href="#" id="goLogin">Giriş Yap</a></p>
-  </div>
+<!-- Kayıt Kartı -->
+<div class="container hidden" id="registerCard">
+  <h2>Kayıt Ol</h2>
+  <input type="text" id="regNick" placeholder="Nickname">
+  <input type="password" id="regPass" placeholder="Şifre">
+  <button id="btnRegister">Kayıt Ol</button>
+  <p class="msg" id="regMsg"></p>
+  <p><a href="#" id="goLogin">Giriş Yap</a></p>
 </div>
 
-<!-- Welcome / Haberler -->
-<div id="home" class="section hidden">
-  <div id="welcomeContainer">
-    Hoşgeldin: <span id="welcome"></span>
-  </div>
-  <div id="newsCard">
-    <h2>Haberler</h2>
-    <div id="newsList"></div>
-  </div>
+<!-- Haber Penceresi -->
+<div class="window hidden" id="newsCard">
+  <h2>Haberler</h2>
+  <div id="newsList"></div>
 </div>
 
-<!-- Forum -->
-<div id="forumCard" class="section hidden">
+<!-- Forum Penceresi -->
+<div class="window hidden" id="forum">
   <h2>Forum</h2>
   <div id="forumList"></div>
-  <textarea id="forumInput" placeholder="Mesaj yaz..."></textarea>
-  <button id="btnForumSend">Gönder</button>
+  <input type="text" id="forumMsg" placeholder="Mesaj yazın">
+  <button id="sendForum">Gönder</button>
+</div>
+
+<!-- Formlar -->
+<div class="window hidden" id="forms">
+  <h2>Formlar</h2>
+  <p>Form içerikleri buraya gelecek...</p>
 </div>
 
 </body>
