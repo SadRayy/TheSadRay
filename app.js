@@ -12,7 +12,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Elementler
+// Elements
 const authContainer = document.getElementById('auth-container');
 const nicknameInput = document.getElementById('nickname');
 const passwordInput = document.getElementById('password');
@@ -31,7 +31,7 @@ const forumSend = document.getElementById('forum-send');
 
 let currentUser = null;
 
-// Kayıt
+// Register
 registerBtn.addEventListener('click', () => {
     const nickname = nicknameInput.value.trim();
     const password = passwordInput.value.trim();
@@ -48,7 +48,7 @@ registerBtn.addEventListener('click', () => {
     });
 });
 
-// Giriş
+// Login
 loginBtn.addEventListener('click', () => {
     const nickname = nicknameInput.value.trim();
     const password = passwordInput.value.trim();
@@ -57,7 +57,7 @@ loginBtn.addEventListener('click', () => {
     db.collection('users').doc(nickname).get().then(doc=>{
         if(doc.exists && doc.data().password === password){
             currentUser = nickname;
-            authContainer.style.display="none";
+            authContainer.style.display="none";  // NAVBAR GÖZÜKMESİN
             navbar.style.display="flex";
             showSection('anasayfa');
         } else {
@@ -66,7 +66,7 @@ loginBtn.addEventListener('click', () => {
     });
 });
 
-// Navbar tıklama
+// Navbar click
 navItems.forEach(item=>{
     item.addEventListener('click',()=>{
         const section = item.getAttribute('data-section');
@@ -74,7 +74,7 @@ navItems.forEach(item=>{
     });
 });
 
-// Çıkış
+// Logout
 logoutBtn.addEventListener('click',()=>{
     currentUser=null;
     authContainer.style.display="block";
@@ -82,13 +82,13 @@ logoutBtn.addEventListener('click',()=>{
     sections.forEach(s=>s.style.display="none");
 });
 
-// Bölüm göster
+// Show section
 function showSection(id){
     sections.forEach(s=>s.style.display="none");
     document.getElementById(id).style.display="block";
 }
 
-// Forum mesaj gönderme
+// Forum messages
 forumSend.addEventListener('click',()=>{
     const msg = forumInput.value.trim();
     if(!msg || !currentUser) return;
@@ -100,7 +100,7 @@ forumSend.addEventListener('click',()=>{
     }).then(()=> forumInput.value='');
 });
 
-// Forum mesajları yükle
+// Load forum messages
 db.collection('forum').orderBy('createdAt','asc').onSnapshot(snapshot=>{
     forumMessages.innerHTML='';
     snapshot.forEach(doc=>{

@@ -1,153 +1,100 @@
-/* Genel Ayarlar */
 body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     margin: 0;
-    font-family: 'Arial', sans-serif;
-    background: #f0f4f8;
-    color: #333;
+    padding: 0;
+    min-height: 100vh;
 }
 
-/* Giriş/Kayıt */
-#auth-container {
-    max-width: 400px;
-    margin: 100px auto;
-    padding: 30px;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-#auth-container input {
+/* === AUTH === */
+.auth-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
     width: 90%;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 8px;
+    max-width: 380px;
+    text-align: center;
+    margin: 100px auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.auth-container h2 { margin-bottom: 25px; color: #1f4037; }
+.auth-container input {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border-radius: 10px;
     border: 1px solid #ccc;
     font-size: 16px;
 }
 
-#auth-container button {
-    width: 45%;
-    margin: 10px 5px;
-    padding: 10px;
-    border-radius: 8px;
+.auth-container button {
+    width: 48%;
+    padding: 14px;
+    margin: 10px 1%;
     border: none;
-    background: #4a90e2;
-    color: white;
-    font-weight: bold;
+    border-radius: 10px;
     cursor: pointer;
+    font-weight: bold;
+    background-color: #1f4037;
+    color: white;
     transition: 0.3s;
 }
 
-#auth-container button:hover {
-    background: #357ABD;
+.auth-container button:hover {
+    background-color: #4caf50;
 }
 
-#auth-msg {
-    color: red;
-    margin-top: 10px;
-}
+#auth-msg { margin-top: 12px; color: red; font-weight: bold; }
 
-/* Navbar */
-#navbar {
+/* === NAVBAR === */
+.navbar {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    background: #1f2937;
-    padding: 10px 0;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.navItem {
-    color: white;
-    cursor: pointer;
+    padding: 12px 20px;
+    background-color: #fff;
+    position: sticky;
+    top: 0;
     font-weight: bold;
-    transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 100;
 }
 
-.navItem:hover {
-    color: #4a90e2;
-}
+.navItem { cursor: pointer; color: #1f4037; transition: 0.3s; margin: 0 12px; }
+.navItem:hover { color: #4caf50; }
 
-#logout {
-    padding: 6px 15px;
-    border-radius: 8px;
-    border: none;
-    background: #e94e77;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-#logout:hover {
-    background: #c43f65;
-}
-
-/* Bölümler */
+/* === SECTIONS === */
 .section {
+    padding: 30px;
+    background-color: #f4f7f8;
     display: none;
-    max-width: 900px;
-    margin: 50px auto;
-    padding: 20px;
-    background: #fff;
+    min-height: calc(100vh - 60px);
+    transition: all 0.3s;
+    border-top: 5px solid #1f4037;
+    border-radius: 15px;
+    margin: 20px;
+}
+
+.news {
+    margin: 15px 0;
+    padding: 18px;
     border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    background-color: #e0f7fa;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 /* Forum */
 #forum-messages {
-    max-height: 300px;
+    border: 1px solid #ccc;
+    padding: 12px;
+    height: 300px;
     overflow-y: auto;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    padding: 10px;
+    margin-bottom: 12px;
+    background-color: #ffffff;
     border-radius: 8px;
-    background: #f9f9f9;
 }
 
-#forum-input {
-    width: 70%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-#forum-send {
-    padding: 10px 15px;
-    border-radius: 8px;
-    border: none;
-    background: #4a90e2;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 5px;
-    transition: 0.3s;
-}
-
-#forum-send:hover {
-    background: #357ABD;
-}
-
-/* Mobil Uyumluluk */
-@media (max-width: 600px) {
-    #navbar {
-        flex-direction: column; /* Öğeleri dikey sıraya diz */
-        align-items: stretch;   /* Genişliği navbar ile aynı yap */
-        gap: 10px;              /* Öğeler arasında boşluk */
-        padding: 20px 10px;
-    }
-
-    .navItem {
-        text-align: center;     /* Kelimeleri ortala */
-        padding: 10px 0;
-        border-radius: 8px;
-        background: #2d3748;    /* Mobilde biraz renkli kutucuk */
-    }
-
-    #logout {
-        width: 100%;            /* Çıkış butonunu tam genişlik yap */
-        padding: 10px;
-    }
-}
+#forum-input { width: 78%; padding: 12px; border-radius: 8px; border:1px solid #ccc; }
+#forum-send { width: 20%; padding: 12px; background-color: #1f4037; color:white; border:none; border-radius:8px; cursor:pointer;}
+#forum-send:hover { background-color: #4caf50; }

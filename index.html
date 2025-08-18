@@ -3,49 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Okul Bloğu</title>
+    <title>Sadrayy Site</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
-    <!-- Giriş / Kayıt -->
-    <div id="auth-container">
+
+    <!-- GİRİŞ/KAYIT -->
+    <div id="auth-container" class="auth-container">
         <h2>Giriş / Kayıt</h2>
         <input type="text" id="nickname" placeholder="Nickname">
         <input type="password" id="password" placeholder="Şifre">
-        <button id="login-btn">Giriş Yap</button>
-        <button id="register-btn">Kayıt Ol</button>
-        <p id="auth-msg"></p>
+        <div>
+            <button id="login-btn">Giriş Yap</button>
+            <button id="register-btn">Kayıt Ol</button>
+        </div>
+        <div id="auth-msg"></div>
     </div>
 
-    <!-- Navbar -->
-    <nav id="navbar">
-        <div class="navItem" data-section="anasayfa">Anasayfa</div>
-        <div class="navItem" data-section="duyurular">Duyurular</div>
-        <div class="navItem" data-section="forum">Forum</div>
-        <div class="navItem" data-section="hakkinda">Hakkında</div>
-        <button id="logout">Çıkış</button>
-    </nav>
+    <!-- NAVBAR -->
+    <div id="navbar" class="navbar" style="display:none;">
+        <span class="navItem" data-section="anasayfa">Anasayfa</span>
+        <span class="navItem" data-section="duyurular">Duyurular</span>
+        <span class="navItem" data-section="forum">Forum</span>
+        <span class="navItem" data-section="hakkinda">Hakkında</span>
+        <span id="logout" class="navItem">Çıkış Yap</span>
+    </div>
 
-    <!-- Bölümler -->
+    <!-- BÖLÜMLER -->
     <div id="anasayfa" class="section">
         <h2>Anasayfa</h2>
-        <p>Hoş geldiniz! Güncel okul haberlerini buradan takip edebilirsiniz.</p>
+        <div class="news">Güncel haberler burada yer alacak.</div>
+        <div class="news">Daha fazla içerik...</div>
     </div>
+
     <div id="duyurular" class="section">
         <h2>Duyurular</h2>
-        <p>Okul duyuruları burada gösterilecek.</p>
+        <div class="news">Önemli duyurular burada yer alacak.</div>
     </div>
+
     <div id="forum" class="section">
         <h2>Forum</h2>
         <div id="forum-messages"></div>
         <input type="text" id="forum-input" placeholder="Mesaj yaz...">
         <button id="forum-send">Gönder</button>
     </div>
+
     <div id="hakkinda" class="section">
         <h2>Hakkında</h2>
-        <p>Okul bloğumuz hakkında bilgi burada yer alır.</p>
+        <p>Site hakkında bilgiler buraya gelecek.</p>
     </div>
 
     <script src="app.js"></script>
