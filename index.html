@@ -3,37 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profesyonel Site</title>
+    <title>MySite</title>
     <link rel="stylesheet" href="style.css">
-    <script type="module" src="app.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
-
-    <!-- Giriş/Kayıt Kartları -->
-    <div class="auth-container" id="authContainer">
+    <!-- Giriş/Kayıt Ekranı -->
+    <div class="auth-container" id="auth-container">
         <h2>Giriş Yap / Kayıt Ol</h2>
-        <input type="text" id="email" placeholder="Email">
+        <input type="text" id="nickname" placeholder="Nickname">
         <input type="password" id="password" placeholder="Şifre">
-        <button id="loginBtn">Giriş Yap</button>
-        <button id="registerBtn">Kayıt Ol</button>
-        <div class="msg" id="msg"></div>
+        <button id="login-btn">Giriş Yap</button>
+        <button id="register-btn">Kayıt Ol</button>
+        <p id="auth-msg"></p>
     </div>
 
     <!-- Navbar -->
-    <div class="navbar hidden" id="navbar">
-        <div class="navItem" data-section="anasayfa">Anasayfa</div>
-        <div class="navItem" data-section="duyurular">Duyurular</div>
-        <div class="navItem" data-section="forum">Forum</div>
-        <div class="navItem" data-section="hakkinda">Hakkında</div>
+    <div class="navbar" id="navbar" style="display:none;">
+        <span class="navItem" data-section="anasayfa">Anasayfa</span>
+        <span class="navItem" data-section="duyurular">Duyurular</span>
+        <span class="navItem" data-section="forumlar">Forumlar</span>
+        <span class="navItem" data-section="hakkinda">Hakkında</span>
+        <span class="navItem" id="logout">Çıkış Yap</span>
     </div>
 
-    <!-- Sayfa İçerikleri -->
-    <div class="section-container hidden" id="sectionContainer">
-        <div class="section" id="anasayfa">Haberler buraya gelecek...</div>
-        <div class="section hidden" id="duyurular">Duyurular buraya gelecek...</div>
-        <div class="section hidden" id="forum">Forum mesajları buraya gelecek...</div>
-        <div class="section hidden" id="hakkinda">Hakkında bilgisi buraya gelecek...</div>
+    <!-- Bölümler -->
+    <div class="section" id="anasayfa" style="display:none;">
+        <h2>Anasayfa - Haberler</h2>
+        <div class="news">Haber 1</div>
+        <div class="news">Haber 2</div>
     </div>
 
+    <div class="section" id="duyurular" style="display:none;">
+        <h2>Duyurular</h2>
+        <div class="news">Duyuru 1</div>
+        <div class="news">Duyuru 2</div>
+    </div>
+
+    <div class="section" id="forumlar" style="display:none;">
+        <h2>Forumlar</h2>
+        <div id="forum-messages"></div>
+        <input type="text" id="forum-input" placeholder="Mesaj yazın...">
+        <button id="forum-send">Gönder</button>
+    </div>
+
+    <div class="section" id="hakkinda" style="display:none;">
+        <h2>Hakkında</h2>
+        <p>Bu site ders çalışmak ve haberleri takip etmek için hazırlanmıştır.</p>
+    </div>
+
+    <script src="app.js"></script>
 </body>
 </html>
