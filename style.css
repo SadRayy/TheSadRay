@@ -1,83 +1,18 @@
-/* Genel ayarlar */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #1f4037, #99f2c8);
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-/* Kartlar */
-.container {
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    width: 350px;
-    text-align: center;
-}
-
-h1,h2 { color:#1f4037; margin-bottom:20px; }
-
-input[type="text"], input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 15px;
-}
-
-button {
-    width: 100%;
-    padding: 12px;
-    margin: 15px 0;
-    background-color: #1f4037;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
-    transition: 0.3s;
-}
-
-button:hover { background-color: #4caf50; }
-
-.msg { margin: 5px 0; }
-.msg.error { color: red; }
-.msg.ok { color: green; }
-.link { cursor:pointer; color: blue; text-decoration: underline; }
-
-/* Navbar */
-.navbar {
-    display: flex;
-    justify-content: flex-start;
-    gap: 30px;
-    padding: 10px 20px;
-    position: sticky;
-    top: 0;
-    background-color: white;
-    z-index: 100;
-    font-weight: bold;
-}
-
-.navItem { cursor: pointer; color: black; transition:0.2s; }
-.navItem:hover { color:#1f4037; }
-
-/* Bölümler */
-.section { padding:20px; background:white; }
+body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f9f9f9;}
+#navbar { display:flex; background:#222; color:white; padding:10px; position:fixed; top:0; width:100%; z-index:1000;}
+.navItem { margin-right:15px; cursor:pointer; }
+.navItem:hover { text-decoration:underline; }
+.section { padding:80px 20px 20px 20px; }
 .hidden { display:none; }
 
-/* Forum */
-#forumMessages p {
-    background:#eaf4f4;
-    padding:10px;
-    border-radius:8px;
-    margin-bottom:8px;
+#loginCard, #registerCard, #newsCard, #forumCard {
+  max-width:500px; margin:100px auto 20px; padding:20px;
+  background:white; box-shadow:0 0 10px rgba(0,0,0,0.2); border-radius:10px;
 }
-#forumInput { width: calc(100% - 90px); padding:8px; }
-#forumSend { padding:8px 12px; }
+input, textarea, button { width:100%; margin:5px 0; padding:10px; border-radius:5px; border:1px solid #ccc; }
+button { background:#222; color:white; cursor:pointer; }
+button:hover { background:#555; }
+.msg { margin:5px 0; color:red; font-weight:bold; }
+#forumInput { height:60px; resize:none; }
+.news { padding:10px; margin:5px 0; border-bottom:1px solid #eee; }
+#welcomeContainer { padding:50px 20px 10px 20px; font-weight:bold;}
