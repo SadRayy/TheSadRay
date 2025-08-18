@@ -12,49 +12,48 @@
 <!-- Navbar -->
 <nav class="navbar">
   <span class="navItem" data-section="home">Anasayfa</span>
-  <span class="navItem" data-section="news">Haberler</span>
-  <span class="navItem" data-section="forum">Forum</span>
-  <span class="navItem" data-section="forms">Formlar</span>
+  <span class="navItem" data-section="newsSection">Haberler</span>
+  <span class="navItem" data-section="forumSection">Forum</span>
 </nav>
 
 <!-- Giriş Kartı -->
-<div class="container" id="loginCard">
+<div id="loginCard" class="container">
   <h2>Giriş Yap</h2>
   <input type="text" id="logNick" placeholder="Nickname">
   <input type="password" id="logPass" placeholder="Şifre">
-  <button id="btnLogin">Giriş Yap</button>
-  <p class="msg" id="logMsg"></p>
+  <button id="btnLogin">Giriş</button>
+  <p id="logMsg" class="msg"></p>
   <p><a href="#" id="goRegister">Kayıt Ol</a></p>
 </div>
 
 <!-- Kayıt Kartı -->
-<div class="container hidden" id="registerCard">
+<div id="registerCard" class="container hidden">
   <h2>Kayıt Ol</h2>
   <input type="text" id="regNick" placeholder="Nickname">
   <input type="password" id="regPass" placeholder="Şifre">
-  <button id="btnRegister">Kayıt Ol</button>
-  <p class="msg" id="regMsg"></p>
+  <button id="btnRegister">Kayıt</button>
+  <p id="regMsg" class="msg"></p>
   <p><a href="#" id="goLogin">Giriş Yap</a></p>
 </div>
 
-<!-- Haber Penceresi -->
-<div class="window hidden" id="newsCard">
-  <h2>Haberler</h2>
+<!-- Haber Kartı -->
+<div id="newsCard" class="container hidden">
+  <h2>Hoşgeldin, <span id="welcome"></span></h2>
   <div id="newsList"></div>
 </div>
 
-<!-- Forum Penceresi -->
-<div class="window hidden" id="forum">
+<!-- Forum Kartı -->
+<div id="forumSection" class="container hidden section">
   <h2>Forum</h2>
   <div id="forumList"></div>
-  <input type="text" id="forumMsg" placeholder="Mesaj yazın">
-  <button id="sendForum">Gönder</button>
+  <input type="text" id="forumInput" placeholder="Mesajınızı yazın...">
+  <button id="btnForum">Gönder</button>
 </div>
 
-<!-- Formlar -->
-<div class="window hidden" id="forms">
-  <h2>Formlar</h2>
-  <p>Form içerikleri buraya gelecek...</p>
+<!-- Anasayfa -->
+<div id="home" class="container section hidden">
+  <h2>Anasayfa</h2>
+  <p>Buraya hoşgeldiniz mesajı veya duyurular ekleyebilirsiniz.</p>
 </div>
 
 </body>
