@@ -9,7 +9,7 @@
 <body>
 
 <!-- Kayıt Ekranı -->
-<div class="container registerCard" id="registerCard">
+<div class="container" id="registerCard">
   <h2>Kayıt Ol</h2>
   <input type="text" id="regNick" placeholder="Nickname">
   <input type="password" id="regPass" placeholder="Şifre">
@@ -19,7 +19,7 @@
 </div>
 
 <!-- Giriş Ekranı -->
-<div class="container loginCard hidden" id="loginCard">
+<div class="container hidden" id="loginCard">
   <h2>Giriş Yap</h2>
   <input type="text" id="logNick" placeholder="Nickname">
   <input type="password" id="logPass" placeholder="Şifre">
@@ -28,26 +28,30 @@
   <p>Hesabınız yoksa <span id="goRegister" class="link">Kayıt Ol</span></p>
 </div>
 
-<!-- Haber ve Navbar Ekranı -->
-<div class="newsCard hidden" id="newsCard">
+<!-- Navbar + Pencereler -->
+<div class="hidden" id="newsCard">
   <div class="navbar">
     <span class="navItem" data-section="home">Anasayfa</span>
     <span class="navItem" data-section="announcements">Duyurular</span>
     <span class="navItem" data-section="forum">Forum</span>
     <span class="navItem" data-section="about">Hakkında</span>
   </div>
+
   <div class="section" id="home">
     <h2>Hoş geldin, <span id="welcome"></span></h2>
     <div id="newsList"></div>
   </div>
+
   <div class="section hidden" id="announcements">
     <h2>Duyurular</h2>
     <p>Burada tüm duyurular gösterilecek.</p>
   </div>
+
   <div class="section hidden" id="forum">
     <h2>Forum</h2>
     <p>Forum sistemi burada olacak.</p>
   </div>
+
   <div class="section hidden" id="about">
     <h2>Hakkında</h2>
     <p>Sitenin amacı ve kullanım kuralları burada olacak.</p>

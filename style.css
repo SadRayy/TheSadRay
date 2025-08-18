@@ -1,105 +1,111 @@
-/* Genel body ayarları */
+/* === GENEL === */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #1f4037, #99f2c8);
     color: #333;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
 }
 
-/* Kayıt ve giriş kutuları */
-.container {
-    background-color: rgba(255, 255, 255, 0.95);
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    width: 350px;
-    text-align: center;
+/* === NAVBAR === */
+.navbar {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 15px 20px;
+    position: sticky;
+    top: 0;
+    background: #1f4037;
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.navItem {
+    cursor: pointer;
+    transition: 0.3s;
+}
+.navItem:hover {
+    color: #99f2c8;
 }
 
-/* Başlıklar */
-h1, h2 {
+/* === SECTIONS (Pencereler) === */
+.section {
+    min-height: calc(100vh - 60px); /* navbar yüksekliği çık */
+    background: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+    animation: fadeIn 0.5s ease;
+}
+
+/* Haber listesi */
+.news {
+    width: 100%;
+    max-width: 700px;
+    margin: 20px 0;
+    padding: 20px;
+    background: #eaf4f4;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.news h3 {
+    margin-top: 0;
+}
+
+/* === AUTH (Kayıt & Giriş Kartları) === */
+.container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    width: 90%;
+    max-width: 350px;
+    text-align: center;
+    margin: 80px auto;
+    animation: fadeIn 0.6s ease;
+}
+.container h2 {
     color: #1f4037;
     margin-bottom: 20px;
 }
-
-/* Input alanları */
-input[type="text"], input[type="password"], input[type="email"] {
+.container input {
     width: 100%;
     padding: 12px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #f9f9f9;
-    font-size: 15px;
+    background: #f9f9f9;
 }
-
-/* Butonlar */
 button {
     width: 100%;
     padding: 12px;
-    margin: 15px 0;
-    background-color: #1f4037;
-    color: #fff;
+    margin-top: 10px;
     border: none;
+    background: #1f4037;
+    color: white;
     border-radius: 8px;
     cursor: pointer;
-    font-weight: bold;
-    font-size: 16px;
     transition: 0.3s;
 }
-
 button:hover {
-    background-color: #4caf50;
+    background: #4caf50;
 }
 
-/* Mesajlar */
-.msg {
-    margin: 5px 0;
-}
+/* === MESAJLAR === */
 .msg.error { color: red; }
-.msg.ok { color: green; }
+.msg.success { color: green; }
 .link { cursor:pointer; color: blue; text-decoration: underline; }
 
-/* Navbar */
-.navbar {
-    display: flex;
-    justify-content: flex-start;
-    gap: 30px; /* Kelimeler arası boşluk */
-    padding: 10px 20px;
-    position: sticky;
-    top: 0;
-    background-color: white;
-    z-index: 100;
-    font-weight: bold;
-}
+/* === HIDDEN === */
+.hidden { display: none !important; }
 
-.navItem {
-    cursor: pointer;
-    color: black;
-    transition: 0.2s;
-}
-
-.navItem:hover {
-    color: #1f4037;
-}
-
-/* Sayfa bölümleri */
-.section {
-    padding: 20px;
-    background-color: white; /* Haber/Forum/Duyurular beyaz */
-}
-
-.hidden { display: none; }
-
-/* Haber kutuları */
-.news {
-    margin: 10px 0;
-    padding: 15px;
-    border-radius: 10px;
-    background-color: #eaf4f4;
+/* Animasyon */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }

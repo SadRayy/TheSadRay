@@ -47,7 +47,7 @@ navItems.forEach(item => {
   });
 });
 
-/* Yardımcılar */
+/* Helpers */
 const clean = s => (s||"").trim();
 const nicknameKey = "sr_nickname";
 
@@ -71,7 +71,7 @@ btnRegister.addEventListener("click", async ()=>{
   if(!nick || !pass){ regMsg.textContent="Lütfen tüm alanları doldurun"; regMsg.classList.add("error"); return; }
 
   if(!/^[a-zA-Z0-9_.-]{3,20}$/.test(nick)){
-    regMsg.textContent="Nickname 3-20 karakter olmalı (harf/rakam/._-)";
+    regMsg.textContent="Nickname 3-20 karakter olmalı (harf/rakam/._-)"; 
     regMsg.classList.add("error"); return;
   }
 
@@ -138,3 +138,7 @@ async function loadNews(){
 }
 
 function escapeHTML(str){ return String(str||"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m])); }
+
+/* === Kullanıcı zaten giriş yaptıysa === */
+const savedNick = localStorage.getItem(nicknameKey);
+if (savedNick) openNews(savedNick);
