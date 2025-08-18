@@ -1,11 +1,12 @@
 // Firebase Config
 const firebaseConfig = {
-    apiKey: "SENIN_FIREBASE_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyALAEYsysXJy0mnNmJvD5H0wOqXjp4Oohc",
+  authDomain: "sadrayy-site.firebaseapp.com",
+  projectId: "sadrayy-site",
+  storageBucket: "sadrayy-site.firebasestorage.app",
+  messagingSenderId: "302147777701",
+  appId: "1:302147777701:web:d701293a09ab61d85f894c",
+  measurementId: "G-C9HVQ0XXBJ"
 };
 
 firebase.initializeApp(firebaseConfig);
