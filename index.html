@@ -1,60 +1,149 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sadrayy Site</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Yardımlaşma Platformu</title>
+
+  <!-- Google Site Verification -->
+  <meta name="google-site-verification" content="googlef5f8a1cfc4f6e7e5" />
+
+  <link rel="stylesheet" href="style.css" />
+  <!-- Firebase (compat kolay kurulum) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 </head>
 <body>
-
-    <!-- GİRİŞ/KAYIT -->
-    <div id="auth-container" class="auth-container">
-        <h2>Giriş / Kayıt</h2>
-        <input type="text" id="nickname" placeholder="Nickname">
-        <input type="password" id="password" placeholder="Şifre">
-        <div>
-            <button id="login-btn">Giriş Yap</button>
-            <button id="register-btn">Kayıt Ol</button>
-        </div>
-        <div id="auth-msg"></div>
+  <!-- AUTH EKRANI (navbar görünmeyecek) -->
+  <div id="authRoot" class="center-root">
+    <div class="auth-card glass">
+      <h1 class="brand">Yardımlaşma Platformu</h1>
+      <!-- Register -->
+      <div id="registerView">
+        <h2>Kayıt Ol</h2>
+        <p class="muted">Sadece Instagram kullanıcı adınız ile kayıt olun.</p>
+        <form id="registerForm" class="form">
+          <label>
+            <span>Kullanıcı adı</span>
+            <input id="regUsername" type="text" placeholder="ör. ben_ogretmen" autocomplete="off" />
+          </label>
+          <button type="submit" class="btn primary">Kayıt Ol</button>
+        </form>
+        <p class="muted">Zaten hesabın var mı? <button id="showLogin" class="link-btn">Giriş Yap</button></p>
+        <p id="regMsg" class="status"></p>
+      </div>
+      <!-- Login -->
+      <div id="loginView" class="hidden">
+        <h2>Giriş Yap</h2>
+        <p class="muted">Instagram kullanıcı adını girerek devam et.</p>
+        <form id="loginForm" class="form">
+          <label>
+            <span>Kullanıcı adı</span>
+            <input id="logUsername" type="text" placeholder="ör. ben_ogretmen" autocomplete="off" />
+          </label>
+          <button type="submit" class="btn primary">Giriş</button>
+        </form>
+        <p class="muted">Hesabın yok mu? <button id="showRegister" class="link-btn">Kayıt Ol</button></p>
+        <p id="logMsg" class="status"></p>
+      </div>
     </div>
+  </div>
 
-    <!-- NAVBAR -->
-    <div id="navbar" class="navbar" style="display:none;">
-        <span class="navItem" data-section="anasayfa">Anasayfa</span>
-        <span class="navItem" data-section="duyurular">Duyurular</span>
-        <span class="navItem" data-section="forum">Forum</span>
-        <span class="navItem" data-section="hakkinda">Hakkında</span>
-        <span id="logout" class="navItem">Çıkış Yap</span>
-    </div>
+  <!-- APP (sadece girişten sonra görünür) -->
+  <header id="appHeader" class="app-header hidden">
+    <nav class="navbar">
+      <div class="nav-left">
+        <div class="logo">YardımPlatformu</div>
+        <ul class="nav-list" role="tablist">
+          <li><button class="nav-item" data-page="pageRules">KURALLAR</button></li>
+          <li><button class="nav-item" data-page="pageForum">FORUM</button></li>
+          <li><button class="nav-item" data-page="pageAbout">HAKKINDA</button></li>
+          <li><button class="nav-item" data-page="pageReport">RAPOR</button></li>
+        </ul>
+      </div>
+      <div class="nav-right">
+        <div id="whoami" class="whoami">@kullanici</div>
+        <button id="btnLogout" class="btn ghost">Çıkış</button>
+      </div>
+    </nav>
+  </header>
 
-    <!-- BÖLÜMLER -->
-    <div id="anasayfa" class="section">
-        <h2>Anasayfa</h2>
-        <div class="news">Güncel haberler burada yer alacak.</div>
-        <div class="news">Daha fazla içerik...</div>
-    </div>
-
-    <div id="duyurular" class="section">
-        <h2>Duyurular</h2>
-        <div class="news">Önemli duyurular burada yer alacak.</div>
-    </div>
-
-    <div id="forum" class="section">
+  <main id="appRoot" class="app-root hidden">
+    <!-- Kurallar -->
+    <section id="pageRules" class="page">
+      <div class="panel">
+        <h2>Site Kuralları</h2>
+        <ol class="rules">
+          <li>Gerçek Instagram kullanıcı adı ile giriş yapmanız zorunludur.</li>
+          <li>Diğer kullanıcılara hakaret, küfür veya saldırgan davranış yasaktır.</li>
+          <li>Site yalnızca bilgi paylaşımı ve yardımlaşma amacıyla kullanılmalıdır.</li>
+          <li>Kişisel bilgilerinizi (telefon, adres vb.) paylaşmayınız.</li>
+          <li>Doğru bilgi paylaşmaya özen gösteriniz.</li>
+          <li>Kurallara uymayan kullanıcılar siteye erişim engeli alabilir.</li>
+        </ol>
+      </div>
+    </section>
+    <!-- Forum -->
+    <section id="pageForum" class="page hidden">
+      <div class="panel">
         <h2>Forum</h2>
-        <div id="forum-messages"></div>
-        <input type="text" id="forum-input" placeholder="Mesaj yaz...">
-        <button id="forum-send">Gönder</button>
-    </div>
-
-    <div id="hakkinda" class="section">
+        <form id="questionForm" class="form grid">
+          <div class="col">
+            <label><span>Başlık</span><input id="qTitle" type="text" maxlength="120" /></label>
+            <label><span>Sınıf</span>
+              <select id="qGrade">
+                <option value="">Seçin</option>
+                <option>9</option><option>10</option><option>11</option><option>12</option>
+              </select>
+            </label>
+          </div>
+          <div class="col">
+            <label><span>Ders</span>
+              <select id="qSubject">
+                <option value="">Seçin</option>
+                <option>Matematik</option><option>Fizik</option><option>Kimya</option>
+                <option>Biyoloji</option><option>Türkçe/Edebiyat</option><option>Tarih</option>
+                <option>Coğrafya</option><option>İngilizce</option><option>Felsefe/Din Kültürü</option>
+              </select>
+            </label>
+            <label><span>Açıklama</span><textarea id="qDesc" rows="4"></textarea></label>
+          </div>
+          <div class="fullrow">
+            <button id="btnPostQuestion" class="btn primary">Soruyu Paylaş</button>
+            <div class="filters">
+              <select id="filterGrade"><option value="">Tüm Sınıflar</option><option>9</option><option>10</option><option>11</option><option>12</option></select>
+              <select id="filterSubject"><option value="">Tüm Dersler</option><option>Matematik</option><option>Fizik</option><option>Kimya</option><option>Biyoloji</option><option>Türkçe/Edebiyat</option><option>Tarih</option><option>Coğrafya</option><option>İngilizce</option><option>Felsefe/Din Kültürü</option></select>
+              <button id="btnApplyFilter" class="btn ghost">Uygula</button>
+            </div>
+          </div>
+        </form>
+        <div id="questionsList" class="list"></div>
+      </div>
+    </section>
+    <!-- About -->
+    <section id="pageAbout" class="page hidden">
+      <div class="panel">
         <h2>Hakkında</h2>
-        <p>Site hakkında bilgiler buraya gelecek.</p>
-    </div>
+        <p>Bu platform Instagram kullanıcılarının derslerle ilgili soru sormaları ve yardım bulmaları için tasarlanmıştır. Kullanıcılar Instagram kullanıcı adlarıyla kayıt olur ve yardımlaşma için iletişime geçer.</p>
+      </div>
+    </section>
+    <!-- Report -->
+    <section id="pageReport" class="page hidden">
+      <div class="panel">
+        <h2>Rapor / Şikayet</h2>
+        <form id="reportForm" class="form">
+          <label><span>Başlık</span><input id="rTitle" type="text" maxlength="120" /></label>
+          <label><span>Detay</span><textarea id="rDesc" rows="4"></textarea></label>
+          <div class="row">
+            <button id="btnSendReport" class="btn warning">Gönder</button>
+            <button id="btnShowReports" class="btn ghost">Raporları Göster</button>
+          </div>
+        </form>
+        <div id="reportsList" class="list"></div>
+      </div>
+    </section>
+  </main>
 
-    <script src="app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
